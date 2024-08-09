@@ -1,0 +1,40 @@
+﻿@model Question
+
+<h1>WIN23 ClassSurvey</h1>
+
+<section class="survey">
+    <div class="container">
+        <h2>@Model.QuestionText</h2>
+
+        @using (Html.BeginForm("Index", "Survey", FormMethod.Post))
+        {
+            <input type="hidden" name="id" value="@Model.Id" />
+            if (Model.Type == QuestionType.MultipleChoice || Model.Type == QuestionType.MultipleChoiceWithFreeText)
+            {
+                foreach (var option in Model.Options!)
+                {
+                    <div>
+                        <input type="radio" name="selectedOption" value="@option" required /> @option
+                    </div>
+                }
+            }
+
+            if (Model.Type == QuestionType.FreeText || Model.Type == QuestionType.MultipleChoiceWithFreeText)
+            {
+                <div>
+                    <textarea name="freeTextAnswer" rows="4" cols="50" required></textarea>
+                </div>
+            }
+
+            <button type="submit">Next</button>
+        }
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="validation-summary-errors">
+                @Html.ValidationSummary()
+            </div>
+        }
+
+    </div>
+</section>

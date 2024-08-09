@@ -1,0 +1,145 @@
+﻿.index {
+    position: relative;
+    background: linear-gradient(to right, #333, #1a1a1a);
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+
+    .section-title {
+        text-align: center;
+        color: #ffffff;
+        margin-top: 30px;
+        margin-bottom: 30px;
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            font-weight: bold;
+            color: #ff5722;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-top: 10px;
+            line-height: 1.5;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    /* Banners */
+    .banner {
+        position: relative;
+        width: 100%;
+        background-color: #ccff00;
+        box-shadow: 0 0 10px #ccff00, 0 0 2px #ccff00, 0 0 2px #ccff00;
+        color: black;
+        font-size: 24px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    /* Top and bottom banner positions */
+    .top, .bottom {
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        background-color: #ccff00;
+    }
+
+    .top {
+        top: 35%;
+        transform: skewY(-4deg);
+    }
+
+    .bottom {
+        bottom: 25%;
+    }
+
+    .scroll {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        width: 200%;
+    }
+
+    .scroll .word {
+        display: inline-block;
+        margin-right: 60px;
+        white-space: nowrap;
+    }
+
+    #scroll-one, #scroll-two, #scroll-three, #scroll-four {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    #scroll-one {
+        animation: loop 30s linear infinite;
+    }
+
+    #scroll-two {
+        animation: loop 30s linear infinite;
+        transform: translateX(100%);
+        animation-delay: 15s;
+    }
+
+    #scroll-three {
+        animation: loop-left-to-right 40s linear infinite;
+    }
+
+    #scroll-four {
+        animation: loop-left-to-right 40s linear infinite;
+        transform: translateX(100%);
+        animation-delay: 20s;
+    }
+
+    @keyframes loop {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    @keyframes loop-left-to-right {
+        0% {
+            transform: translateX(-100%); /* Starta utanför till vänster */
+        }
+
+        100% {
+            transform: translateX(100%); /* Sluta utanför till höger */
+        }
+    }
+
+    .button-container {
+        position: absolute;
+        top: 45%;
+        left: 45%;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .custom-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ff5722;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 5px;
+        border: 2px solid #ff5722;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s ease-in-out;
+    }
+
+    .custom-button:hover {
+        background-color: transparent;
+        color: #ff5722;
+    }
+}
