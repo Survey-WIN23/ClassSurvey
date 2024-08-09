@@ -27,7 +27,7 @@
             margin-right: auto;
         }
     }
-    /* Banners */
+
     .banner {
         position: relative;
         width: 100%;
@@ -38,7 +38,7 @@
         white-space: nowrap;
         overflow: hidden;
     }
-    /* Top and bottom banner positions */
+
     .top, .bottom {
         position: absolute;
         width: 100%;
@@ -108,11 +108,11 @@
 
     @keyframes loop-left-to-right {
         0% {
-            transform: translateX(-100%); /* Starta utanför till vänster */
+            transform: translateX(-100%); 
         }
 
         100% {
-            transform: translateX(100%); /* Sluta utanför till höger */
+            transform: translateX(100%); 
         }
     }
 

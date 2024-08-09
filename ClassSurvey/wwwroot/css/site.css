@@ -1,12 +1,9 @@
-﻿@charset "UTF-8";
-.index {
+﻿.index {
   position: relative;
   background: linear-gradient(to right, #333, #1a1a1a);
   margin: 0;
   overflow: hidden;
   height: 100vh;
-  /* Banners */
-  /* Top and bottom banner positions */
 }
 .index .section-title {
   text-align: center;
@@ -95,10 +92,10 @@
 }
 @keyframes loop-left-to-right {
   0% {
-    transform: translateX(-100%); /* Starta utanför till vänster */
+    transform: translateX(-100%);
   }
   100% {
-    transform: translateX(100%); /* Sluta utanför till höger */
+    transform: translateX(100%);
   }
 }
 .index .button-container {
