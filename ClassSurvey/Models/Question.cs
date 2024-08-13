@@ -7,7 +7,7 @@ public class Question
     public QuestionType Type { get; set; }
     public bool HasFreeText { get; set; }
 
-    public List<Option> Options { get; set; } = null!;
+    public List<Option>? Options { get; set; }
 }
 
 public enum QuestionType

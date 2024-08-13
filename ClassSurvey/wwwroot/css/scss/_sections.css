@@ -8,7 +8,7 @@
 .index .section-title {
   text-align: center;
   color: #ffffff;
-  margin-top: 30px;
+  margin-top: 270px;
   margin-bottom: 30px;
 }
 .index .section-title h1 {
@@ -44,7 +44,7 @@
   background-color: #ccff00;
 }
 .index .top {
-  top: 35%;
+  top: 15%;
   transform: skewY(-4deg);
 }
 .index .bottom {
@@ -100,10 +100,10 @@
 }
 .index .button-container {
   position: absolute;
-  top: 45%;
-  left: 45%;
+  top: 50%;
+  left: 46%;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .index .custom-button {
   display: inline-block;

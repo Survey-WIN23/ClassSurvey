@@ -8,29 +8,30 @@ public class SurveyController(SurveyService surveyService) : Controller
 {
     private readonly SurveyService _surveyService = surveyService;
 
-    //public async Task<IActionResult> Index(int id = 1)
-    //{
-        //var result = await _surveyService.GetQuestionsAsync();
+    public async Task<IActionResult> Index(int id = 1)
+    {
+        var result = await _surveyService.GetQuestionsAsync();
 
-        //if (result.StatusCode != Models.StatusCode.OK || result.ContentResult == null) 
-        //{
-        //    return RedirectToAction("Completed");
-        //}
+        if (result.StatusCode != Models.StatusCode.OK || result.ContentResult == null)
+        {
+            // Change this to an error page instead of completed. 
+            return RedirectToAction("Completed");
+        }
 
-        //if (result.ContentResult is not IEnumerable<Question> questions || id > questions.Count() || id < 1)
-        //{
-        //    return RedirectToAction("Completed");
-        //}
+        if (result.ContentResult is not IEnumerable<Question> questions || id > questions.Count() || id < 1)
+        {
+            return RedirectToAction("Completed");
+        }
 
-        //var question = questions.FirstOrDefault(q => q.Id == id);
+        var question = questions.FirstOrDefault(q => q.Id == id);
 
-        //if (question is null)
-        //{
-        //    return RedirectToAction("Completed");
-        //}
+        if (question is null)
+        {
+            return RedirectToAction("Completed");
+        }
 
-        //return View(question);
-    //}
+        return View();
+    }
 
     [HttpPost]
     public async Task<IActionResult> Index(int id, Option selectedOption, string responseText)
@@ -60,16 +61,16 @@ public class SurveyController(SurveyService surveyService) : Controller
         //    return View(question);
         //}
 
-        var answerForm = new AnswerForm
-        {
-            QuestionId = id,
-            SelectedOption = selectedOption,
-            ResponseText = responseText,
-        };
+        //var answerForm = new AnswerForm
+        //{
+        //    QuestionId = id,
+        //    SelectedOption = selectedOption,
+        //    ResponseText = responseText,
+        //};
 
         //bool saveResult = await _surveyService.SaveQuestionAnswersAsync(answerForm);
 
-        //if (!saveResult) 
+        //if (!saveResult)
         //{
         //    ModelState.AddModelError("", "An error occurred while saving your answer.");
         //    return View(question);

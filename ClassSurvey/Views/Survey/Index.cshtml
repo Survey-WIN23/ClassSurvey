@@ -4,37 +4,76 @@
 
 <section class="survey">
     <div class="container">
-        <h2>@Model.QuestionText</h2>
+        <div>HÄR SKA UNDERSÖKNINGEN VARA</div>
+        @* <h2>@Model.QuestionText</h2> *@
 
-        @using (Html.BeginForm("Index", "Survey", FormMethod.Post))
-        {
+        <form asp-controller="SurveyController" asp-action="Index" method="post" novalidate>
             <input type="hidden" name="id" value="@Model.Id" />
-            if (Model.Type == QuestionType.MultipleChoice || Model.Type == QuestionType.MultipleChoiceWithFreeText)
+            @if (Model.Options is not null)
             {
-                foreach (var option in Model.Options!)
+
+                @if (Model.Type == QuestionType.MultipleChoice || Model.Type == QuestionType.MultipleChoiceWithFreeText)
+                {
+                    @if (Model.Options != null && Model.Options.Any())
+                    {
+                        foreach (var option in Model.Options)
+                        {
+                            <div>
+                                <input type="radio" name="selectedOption" value="@option.Value" required />
+                            </div>
+                        }
+                    }
+                }
+
+                @if (Model.Type == QuestionType.FreeText || Model.Type == QuestionType.MultipleChoiceWithFreeText)
                 {
                     <div>
-                        <input type="radio" name="selectedOption" value="@option" required /> @option
+                        <textarea name="freeTextAnswer" rows="4" cols="50" required></textarea>
                     </div>
                 }
+
+                <button type="submit">Next</button>
             }
 
-            if (Model.Type == QuestionType.FreeText || Model.Type == QuestionType.MultipleChoiceWithFreeText)
+            @if (!ViewData.ModelState.IsValid)
             {
-                <div>
-                    <textarea name="freeTextAnswer" rows="4" cols="50" required></textarea>
+                <div class="validation-summary-errors">
+                    @Html.ValidationSummary()
                 </div>
             }
+            }
 
-            <button type="submit">Next</button>
+        </form>
+
+        @*   @using (Html.BeginForm("Index", "Survey", FormMethod.Post))
+        {
+        <input type="hidden" name="id" value="@Model.Id" />
+        if (Model.Type == QuestionType.MultipleChoice || Model.Type == QuestionType.MultipleChoiceWithFreeText)
+        {
+        foreach (var option in Model.Options!)
+        {
+        <div>
+        <input type="radio" name="selectedOption" value="@option" required /> @option
+        </div>
+        }
+        }
+
+        if (Model.Type == QuestionType.FreeText || Model.Type == QuestionType.MultipleChoiceWithFreeText)
+        {
+        <div>
+        <textarea name="freeTextAnswer" rows="4" cols="50" required></textarea>
+        </div>
+        }
+
+        <button type="submit">Next</button>
         }
 
         @if (!ViewData.ModelState.IsValid)
         {
-            <div class="validation-summary-errors">
-                @Html.ValidationSummary()
-            </div>
-        }
+        <div class="validation-summary-errors">
+        @Html.ValidationSummary()
+        </div>
+        } *@
 
     </div>
 </section>
