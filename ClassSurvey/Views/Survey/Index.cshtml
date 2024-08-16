@@ -1,79 +1,79 @@
-﻿@model Question
-
-<h1>WIN23 ClassSurvey</h1>
+﻿@model QuestionVM
 
 <section class="survey">
     <div class="container">
-        <div>HÄR SKA UNDERSÖKNINGEN VARA</div>
-        @* <h2>@Model.QuestionText</h2> *@
 
-        <form asp-controller="SurveyController" asp-action="Index" method="post" novalidate>
-            <input type="hidden" name="id" value="@Model.Id" />
-            @if (Model.Options is not null)
+        @if (Model is not null)
+        {
+
+            <h1>Question @Model.CurrentPage of @Model.TotalPages</h1>
+
+            <p>@Model.Question.QuestionText</p>
+
+            @if (Model.Question.Options != null && Model.Question.Options.Any())
             {
-
-                @if (Model.Type == QuestionType.MultipleChoice || Model.Type == QuestionType.MultipleChoiceWithFreeText)
-                {
-                    @if (Model.Options != null && Model.Options.Any())
+                <ul>
+                    @foreach (var option in Model.Question.Options)
                     {
-                        foreach (var option in Model.Options)
-                        {
-                            <div>
-                                <input type="radio" name="selectedOption" value="@option.Value" required />
-                            </div>
-                        }
+                        <li>
+                            <input type="checkbox" name="selectedOptions" value="@option.Id" /> @option.Value
+                        </li>
                     }
-                }
+                </ul>
+            }
 
-                @if (Model.Type == QuestionType.FreeText || Model.Type == QuestionType.MultipleChoiceWithFreeText)
+            <div>
+                @if (Model.CurrentPage > 1)
                 {
-                    <div>
-                        <textarea name="freeTextAnswer" rows="4" cols="50" required></textarea>
-                    </div>
+                    <a href="@Url.Action("Index", new { pageNumber = Model.CurrentPage - 1 })">Previous</a>
                 }
 
-                <button type="submit">Next</button>
-            }
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <a href="@Url.Action("Index", new { pageNumber = Model.CurrentPage + 1 })">Next</a>
+                }
+            </div>
 
-            @if (!ViewData.ModelState.IsValid)
-            {
-                <div class="validation-summary-errors">
-                    @Html.ValidationSummary()
+        }
+        else
+        {
+
+            <div class="completed-container">
+                <div class="completed-message">
+                    <h2>Inga tillgängliga frågor.</h2>
+                    <p>Var god försök igen senare.</p>
                 </div>
-            }
-            }
+            </div>
 
-        </form>
-
-        @*   @using (Html.BeginForm("Index", "Survey", FormMethod.Post))
-        {
-        <input type="hidden" name="id" value="@Model.Id" />
-        if (Model.Type == QuestionType.MultipleChoice || Model.Type == QuestionType.MultipleChoiceWithFreeText)
-        {
-        foreach (var option in Model.Options!)
-        {
-        <div>
-        <input type="radio" name="selectedOption" value="@option" required /> @option
-        </div>
         }
-        }
-
-        if (Model.Type == QuestionType.FreeText || Model.Type == QuestionType.MultipleChoiceWithFreeText)
-        {
-        <div>
-        <textarea name="freeTextAnswer" rows="4" cols="50" required></textarea>
-        </div>
-        }
-
-        <button type="submit">Next</button>
-        }
-
-        @if (!ViewData.ModelState.IsValid)
-        {
-        <div class="validation-summary-errors">
-        @Html.ValidationSummary()
-        </div>
-        } *@
 
     </div>
 </section>
+
+<style>
+    .completed-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+
+    .completed-message {
+        text-align: center;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .completed-message h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .completed-message p {
+            color: #666;
+        }
+</style>

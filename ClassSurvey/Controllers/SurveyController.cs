@@ -1,5 +1,6 @@
 ﻿using ClassSurvey.Models;
 using ClassSurvey.Services;
+using ClassSurvey.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClassSurvey.Controllers;
@@ -8,26 +9,32 @@ public class SurveyController(SurveyService surveyService) : Controller
 {
     private readonly SurveyService _surveyService = surveyService;
 
-    public async Task<IActionResult> Index(int id = 1)
+    public async Task<IActionResult> Index(int pageNumber = 1)
     {
         var result = await _surveyService.GetQuestionsAsync();
 
         if (result.StatusCode != Models.StatusCode.OK || result.ContentResult == null)
         {
-            // Change this to an error page instead of completed. 
             return RedirectToAction("Completed");
         }
 
-        if (result.ContentResult is not IEnumerable<Question> questions || id > questions.Count() || id < 1)
+        if (result.ContentResult is List<Question> questions)
         {
-            return RedirectToAction("Completed");
-        }
+            if (pageNumber < 1 || pageNumber > questions.Count)
+            {
+                return NotFound();
+            }
 
-        var question = questions.FirstOrDefault(q => q.Id == id);
+            var question = questions[pageNumber - 1];
 
-        if (question is null)
-        {
-            return RedirectToAction("Completed");
+            var viewModel = new QuestionVM
+            {
+                Question = question,
+                CurrentPage = pageNumber,
+                TotalPages = questions.Count
+            };
+
+            return View(viewModel);
         }
 
         return View();
@@ -36,37 +43,37 @@ public class SurveyController(SurveyService surveyService) : Controller
     [HttpPost]
     public async Task<IActionResult> Index(int id, Option selectedOption, string responseText)
     {
-        //var result = await _surveyService.GetQuestionsAsync();
+        var result = await _surveyService.GetQuestionsAsync();
 
-        //if (result.StatusCode != Models.StatusCode.OK || result.ContentResult == null)
-        //{
-        //    return RedirectToAction("Completed");
-        //}
+        if (result.StatusCode != Models.StatusCode.OK || result.ContentResult == null)
+        {
+            return RedirectToAction("Completed");
+        }
 
-        //if (result.ContentResult is not IEnumerable<Question> questions)
-        //{
-        //    return RedirectToAction("Completed");
-        //}
+        if (result.ContentResult is not IEnumerable<Question> questions)
+        {
+            return RedirectToAction("Completed");
+        }
 
-        //var question = questions.FirstOrDefault(q => q.Id == id);
+        var question = questions.FirstOrDefault(q => q.Id == id);
 
-        //if (question == null)
-        //{
-        //    return RedirectToAction("Completed");
-        //}
+        if (question == null)
+        {
+            return RedirectToAction("Completed");
+        }
 
-        //if (!_surveyService.ValidateQuestionAnswer(question, selectedOption, responseText))
-        //{
-        //    ModelState.AddModelError("", "Please provide valid answers.");
-        //    return View(question);
-        //}
+        if (!_surveyService.ValidateQuestionAnswer(question, selectedOption, responseText))
+        {
+            ModelState.AddModelError("", "Please provide valid answers.");
+            return View(question);
+        }
 
-        //var answerForm = new AnswerForm
-        //{
-        //    QuestionId = id,
-        //    SelectedOption = selectedOption,
-        //    ResponseText = responseText,
-        //};
+        var answerForm = new AnswerForm
+        {
+            QuestionId = id,
+            SelectedOption = selectedOption,
+            ResponseText = responseText,
+        };
 
         //bool saveResult = await _surveyService.SaveQuestionAnswersAsync(answerForm);
 
