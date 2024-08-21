@@ -13,7 +13,9 @@ public class SurveyService(HttpClient http, IConfiguration configuration)
 
     public async Task<ResponseResult> GetQuestionsAsync()
     {
-        // Gör en questionresult istället för att hantera callet snyggare.
+        // Gör en questionresult istället för att hantera callet snyggare?
+        // Annars måste jag antingen köra dubbla serializers (Först ResponseResult, sen till Question).
+        // Alternativt en JArray där content-result hämtas ut. 
         try
         {
             var response = await _http.GetAsync("http://localhost:7121/api/questions");
@@ -61,7 +63,7 @@ public class SurveyService(HttpClient http, IConfiguration configuration)
         }
     }
 
-    public async Task<bool> SubmitAnswersAsync(AnswerForm answer)
+    public async Task<bool> SubmitAnswersAsync(List<AnswerForm> answer)
     {
         try
         {
@@ -71,7 +73,7 @@ public class SurveyService(HttpClient http, IConfiguration configuration)
             }
 
             var content = new StringContent(JsonConvert.SerializeObject(answer), Encoding.UTF8, "application/json");
-            var response = await _http.PostAsync(_configuration["Api:Answers"], content);
+            var response = await _http.PostAsync(" http://localhost:7121/api/submitAnswer", content);
 
             if (response.IsSuccessStatusCode)
             {

@@ -1,4 +1,10 @@
-﻿.wrapper {
+﻿@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+
+body {
+    font-family: 'Lora', serif;
+}
+
+.wrapper {
     height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
