@@ -1,145 +1,137 @@
 ﻿.index {
     position: relative;
-    background: linear-gradient(to right, #333, #1a1a1a);
+    background-color: #B5C7B3;
     margin: 0;
     overflow: hidden;
-    height: 100vh;
+    height: 100%;
 
-    .section-title {
-        text-align: center;
-        color: #ffffff;
-        margin-top: 270px;
-        margin-bottom: 30px;
+    .container {
+        padding-top: 160px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
 
-        h1 {
-            font-size: 3em;
-            margin: 0;
+        .svg-left, .svg-right {
+            position: absolute;
+            top: 37%;
+        }
+
+        .svg-left {
+            left: 28%;
+            transform: scale(2);
+        }
+
+        .svg-right {
+            right: 25%;
+            transform: scale(2);
+        }
+
+        .section-title {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 30px;
+
+            h1 {
+                font-family: 'Arial Black', Gadget, sans-serif;
+                font-size: 4em;
+                margin: 0;
+                margin-bottom: 30px;
+                font-weight: bold;
+                color: #ff5722;
+                text-align: center;
+                /*                animation: pulse 2s infinite;*/
+                text-transform: uppercase;
+            }
+
+            p {
+                font-size: 1.2em;
+                margin-top: 10px;
+                line-height: 1.5;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        .typing-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2em;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            margin: 20px 0;
+            border-right: 2px solid #333;
+            width: 100%;
+            animation: typing 15s steps(100, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 110%;
+            }
+        }
+
+        @keyframes blink-caret {
+            from, to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: #333;
+            }
+        }
+
+        .pulse-text {
+            font-family: 'Arial Black', Gadget, sans-serif;
+            font-size: 50px;
+            color: #ff5722;
+            text-align: center;
+            transform: scale(1.3);
+            /*
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                }
+
+                50% {
+                    transform: scale(1.2);
+                }
+
+                100% {
+                    transform: scale(1);
+                }
+            }*/
+        }
+
+
+
+        .button-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .custom-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff5722;
+            color: white;
+            font-size: 18px;
             font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            border: 3px solid #ff5722;
+            text-decoration: none;
+            transition: background-color 0.5s, color 0.3s ease-in-out;
+        }
+
+        .custom-button:hover {
+            background-color: #B5C7B3;
             color: #ff5722;
         }
-
-        p {
-            font-size: 1.2em;
-            margin-top: 10px;
-            line-height: 1.5;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    }
-
-    .banner {
-        position: relative;
-        width: 100%;
-        background-color: #ccff00;
-        box-shadow: 0 0 10px #ccff00, 0 0 2px #ccff00, 0 0 2px #ccff00;
-        color: black;
-        font-size: 24px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-    .top, .bottom {
-        position: absolute;
-        width: 100%;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        background-color: #ccff00;
-    }
-
-    .top {
-        top: 15%;
-        transform: skewY(-4deg);
-    }
-
-    .bottom {
-        bottom: 25%;
-    }
-
-    .scroll {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        width: 200%;
-    }
-
-    .scroll .word {
-        display: inline-block;
-        margin-right: 60px;
-        white-space: nowrap;
-    }
-
-    #scroll-one, #scroll-two, #scroll-three, #scroll-four {
-        display: flex;
-        align-items: center;
-        white-space: nowrap;
-    }
-
-    #scroll-one {
-        animation: loop 30s linear infinite;
-    }
-
-    #scroll-two {
-        animation: loop 30s linear infinite;
-        transform: translateX(100%);
-        animation-delay: 15s;
-    }
-
-    #scroll-three {
-        animation: loop-left-to-right 40s linear infinite;
-    }
-
-    #scroll-four {
-        animation: loop-left-to-right 40s linear infinite;
-        transform: translateX(100%);
-        animation-delay: 20s;
-    }
-
-    @keyframes loop {
-        0% {
-            transform: translateX(100%);
-        }
-
-        100% {
-            transform: translateX(-100%);
-        }
-    }
-
-    @keyframes loop-left-to-right {
-        0% {
-            transform: translateX(-100%); 
-        }
-
-        100% {
-            transform: translateX(100%); 
-        }
-    }
-
-    .button-container {
-        position: absolute;
-        top: 50%;
-        left: 46%;
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    .custom-button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #ff5722;
-        color: white;
-        font-size: 18px;
-        font-weight: bold;
-        text-transform: uppercase;
-        border-radius: 5px;
-        border: 2px solid #ff5722;
-        text-decoration: none;
-        transition: background-color 0.3s, color 0.3s ease-in-out;
-    }
-
-    .custom-button:hover {
-        background-color: transparent;
-        color: #ff5722;
     }
 }

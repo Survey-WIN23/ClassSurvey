@@ -1,0 +1,36 @@
+﻿header {
+    display: flex;
+
+    .navbar {
+        width: 100%;
+        padding: 10px 20px;
+
+        .navbar-brand {
+            color: #2f2f2f;
+
+            &:hover {
+                color: #ff5722;
+            }
+        }
+
+        .nav-container {
+            display: flex;
+            flex-direction: row;
+
+            .nav-item {
+
+                a {
+                    color: #2f2f2f;
+
+                    &:hover {
+                        color: #ff5722;
+                    }
+                }
+            }
+        }
+
+        .nav-item.icon {
+            margin-left: auto;
+        }
+    }
+}

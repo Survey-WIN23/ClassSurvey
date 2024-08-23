@@ -2,9 +2,9 @@
 
 namespace ClassSurvey.Controllers
 {
-    public class AdminAuthController : Controller
+    public class AdminController : Controller
     {
-        public IActionResult Index()
+        public IActionResult SignIn()
         {
             return View();
         }

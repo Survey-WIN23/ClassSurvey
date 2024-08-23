@@ -27,18 +27,17 @@ public class SurveyController(SurveyService surveyService) : Controller
                 return NotFound();
             }
 
-            var userAnswers = HttpContext.Session.GetObjectFromJson<List<AnswerVM>>(AnswerSessionKey) ?? new List<AnswerVM>();
+            var userAnswers = HttpContext.Session.GetObjectFromJson<List<AnswerVM>>(AnswerSessionKey) ?? [];
 
             var question = questions[pageNumber - 1];
             var viewModel = new QuestionVM
             {
-                Questions = new List<Question> { question },
+                Questions = [question],
                 CurrentPage = pageNumber,
                 TotalPages = questions.Count,
                 UserAnswers = userAnswers
             };
 
-            //viewModel.Answers = answers;
             return View("Index", viewModel);
         }
 
@@ -46,9 +45,8 @@ public class SurveyController(SurveyService surveyService) : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> SaveAnswer(int QuestionId, int? optionId, string responseText, bool IsFreeText, bool isFinalSubmit = false)
+    public async Task<IActionResult> SaveAnswer(int QuestionId, int? optionId, string responseText, bool IsFreeText, bool isPreviousPage, bool isFinalSubmit = false)
     {
-        // Skapa en ny instans av AnswerVM med de mottagna värdena
         var answer = new AnswerVM
         {
             QuestionId = QuestionId,
@@ -57,8 +55,7 @@ public class SurveyController(SurveyService surveyService) : Controller
             IsFreeText = !string.IsNullOrWhiteSpace(responseText)
         };
 
-        // Hantera sparande av svar (t.ex. spara i session eller databas)
-        var userAnswers = HttpContext.Session.GetObjectFromJson<List<AnswerVM>>(AnswerSessionKey) ?? new List<AnswerVM>();
+        var userAnswers = HttpContext.Session.GetObjectFromJson<List<AnswerVM>>(AnswerSessionKey) ?? [];
 
         var existingAnswer = userAnswers.FirstOrDefault(a => a.QuestionId == answer.QuestionId);
         if (existingAnswer != null)
@@ -69,7 +66,6 @@ public class SurveyController(SurveyService surveyService) : Controller
 
         HttpContext.Session.SetObjectAsJson(AnswerSessionKey, userAnswers);
 
-        // Hämta alla frågor
         var result = await _surveyService.GetQuestionsAsync();
         if (result.StatusCode != Models.StatusCode.OK || result.ContentResult == null)
         {
@@ -81,31 +77,23 @@ public class SurveyController(SurveyService surveyService) : Controller
             return RedirectToAction("Completed");
         }
 
-        // Hämta den aktuella sidan från session
         var currentPageNumber = HttpContext.Session.GetInt32("CurrentPageNumber") ?? 1;
-
-        // Beräkna nästa sidnummer
-        var nextPageNumber = currentPageNumber + 1;
+        var nextPageNumber = isPreviousPage ? currentPageNumber - 1 : currentPageNumber + 1;
 
         if (isFinalSubmit || nextPageNumber > questions.Count)
         {
-            // Spara den aktuella sidan som slutlig inlämning
             HttpContext.Session.SetInt32("CurrentPageNumber", currentPageNumber);
 
-            // Här anropar vi en metod som hanterar inskickning av alla svar
             return await SubmitAnswers();
         }
 
-        // Kontrollera att nästa sida är inom det tillåtna intervallet
-        if (nextPageNumber < 1 || nextPageNumber > questions.Count)
+        if (nextPageNumber < 1 || nextPageNumber > questions.Count && !isPreviousPage)
         {
             return RedirectToAction("Completed");
         }
 
-        // Spara nästa sida i sessionen
         HttpContext.Session.SetInt32("CurrentPageNumber", nextPageNumber);
 
-        // Navigera till nästa sida
         return RedirectToAction("Index", new { pageNumber = nextPageNumber });
     }
 

@@ -8,16 +8,19 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
+    <Content Remove="wwwroot\css\scss\sections\_completed.scss" />
     <Content Remove="wwwroot\js\fetchquestion.js" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="compilerconfig.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\scss\sections\_completed.scss" />
     <_ContentIncludedByDefault Remove="wwwroot\js\fetchquestion.js" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\css\scss\sections\_completed.scss" />
     <None Include="wwwroot\js\fetchquestion.js" />
   </ItemGroup>
 

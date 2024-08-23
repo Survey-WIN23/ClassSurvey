@@ -5,7 +5,7 @@
         @if (Model.Questions.Any())
         {
             <div class="section-title">
-                <h1><span> WIN </span> 23 <span>|| Klassrådsundersökning</span></h1>
+                <h1><span class="heavy-text"> WIN23 </span>  <span>|| Klassrådsundersökning</span></h1>
             </div>
 
             <div class="progression-container">
@@ -31,7 +31,9 @@
                         @foreach (var option in Model.Questions[0].Options!)
                         {
                             <li>
-                                <input type="radio" name="OptionId" value="@option.Id" /> @option.Value
+                                <input type="radio" name="OptionId" value="@option.Id"
+                                @(Model.UserAnswers.FirstOrDefault(a => a.QuestionId == Model.Questions[0].Id && a.OptionId == option.Id) != null ? "checked" : "") />
+                                @option.Value
                             </li>
                         }
                     </ul>
@@ -40,8 +42,8 @@
                 @if (Model.Questions[0].HasFreeText)
                 {
                     <div class="free-text-container">
-                        <label for="response-text">Din svar:</label>
-                        <textarea id="response-text" name="ResponseText" rows="1"></textarea>
+                        <label for="response-text">Beskriv:</label>
+                        <textarea id="response-text" name="ResponseText" rows="1">@Model.UserAnswers.FirstOrDefault(a => a.QuestionId == Model.Questions[0].Id)?.ResponseText</textarea>
                     </div>
                 }
 
@@ -49,7 +51,7 @@
                     <div class="btn-back">
                         @if (Model.CurrentPage > 1)
                         {
-                            <button type="submit" formaction="@Url.Action("SaveAnswer", new { pageNumber = Model.CurrentPage - 1 })" class="navigate-btn">Föregående</button>
+                            <button type="submit" formaction="@Url.Action("SaveAnswer", new { pageNumber = Model.CurrentPage - 1, isPreviousPage = true})" class="navigate-btn">Föregående</button>
                         }
                         else
                         {
@@ -60,7 +62,7 @@
                     <div class="btn-next">
                         @if (Model.CurrentPage < Model.TotalPages)
                         {
-                            <button type="submit" formaction="@Url.Action("SaveAnswer", new { pageNumber = Model.CurrentPage + 1 })" class="navigate-btn">Nästa</button>
+                            <button type="submit" formaction="@Url.Action("SaveAnswer", new { pageNumber = Model.CurrentPage + 1})" class="navigate-btn">Nästa</button>
                         }
                         else
                         {

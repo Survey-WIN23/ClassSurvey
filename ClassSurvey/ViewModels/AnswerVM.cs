@@ -1,4 +1,5 @@
 ﻿using ClassSurvey.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClassSurvey.ViewModels;
 

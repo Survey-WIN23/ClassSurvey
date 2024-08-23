@@ -1,0 +1,33 @@
+﻿.privacy {
+    background-color: #B5C7B3;
+    padding: 3rem 0;
+    height: 100%;
+
+    .container {
+        background-color: white;
+        padding: 25px 20px 5px 20px;
+        border-radius: 2rem;
+        box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.1);
+        max-width: 900px;
+
+        h1 {
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        h2 {
+            color: #555;
+        }
+
+        p {
+            margin-bottom: 2em;
+            line-height: 1.6;
+        }
+
+        .message {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 1em;
+        }
+    }
+}
