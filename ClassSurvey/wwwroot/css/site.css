@@ -1,5 +1,4 @@
-﻿@charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap");
+﻿@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap");
 .index {
   position: relative;
   background-color: #B5C7B3;
@@ -458,7 +457,7 @@ header .navbar .nav-item.icon {
 }
 
 #signin {
-  height: 100vh;
+  height: 100%;
   background-color: #B5C7B3;
   padding-top: 8rem;
 }
@@ -478,12 +477,15 @@ header .navbar .nav-item.icon {
   display: none;
 }
 #signin .main-holder .alert-danger:not(:empty) {
+  position: absolute;
   display: block;
+  top: -70px;
+  left: 350px;
   color: #ff5722;
   background-color: #fff3e0;
   border: 1px solid #ff5722;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 #signin .main-holder .section-title {
   display: flex;
@@ -531,7 +533,7 @@ header .navbar .nav-item.icon {
 }
 #signin .main-holder .login-box i {
   position: absolute;
-  top: 30px;
+  top: 55px;
   right: 20px;
   font-size: 1.3rem;
   color: #444;
@@ -583,21 +585,6 @@ header .navbar .nav-item.icon {
 #signin .main-holder .login-box .button-holder .btn-theme:hover {
   background-color: #e64a19;
   border-color: #e64a19;
-}
-#signin .main-holder .login-box span {
-  position: relative;
-}
-#signin .main-holder .login-box span.field-validation-error {
-  color: #ff5722;
-}
-#signin .main-holder .login-box span.field-validation-error::after {
-  position: absolute;
-  right: -35px;
-  top: 40px;
-  z-index: 1;
-  font-size: 2em;
-  display: block;
-  content: "⮿";
 }
 
 body {

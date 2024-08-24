@@ -1,4 +1,6 @@
-﻿@{
+﻿@model SignInVM
+
+@{
     ViewBag.Title = "Sign In";
 }
 
@@ -21,18 +23,20 @@
             <form asp-action="SignIn" asp-controller="Admin" method="post" novalidate>
                 <div class="email">
                     <div class="validation">
-                        <span></span>
+                        <label asp-for="Form.Email"></label>
+                        <span asp-validation-for="Form.Email"></span>
                     </div>
                     <i class="fa-regular fa-envelope"></i>
-                    <input type="email" placeholder="USERNAME" aria-label="Username"/>
+                    <input asp-for="Form.Email" type="email" placeholder="USERNAME" aria-label="Username"/>
                 </div>
 
                 <div class="password">
                     <div class="validation">
-                        <span></span>
+                        <label asp-for="Form.Password"></label>
+                        <span asp-validation-for="Form.Password"></span>
                     </div>
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="PASSWORD" aria-label="Password" />
+                    <input asp-for="Form.Password" type="password" placeholder="PASSWORD" aria-label="Password" />
                 </div>
                 <div class="button-holder">
                     <button type="submit" class="btn-theme">Sign in</button>
@@ -41,3 +45,5 @@
         </div>
     </div>
 </section>
+
+@await Html.PartialAsync("_ValidationScriptPartial")
