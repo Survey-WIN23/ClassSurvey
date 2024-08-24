@@ -1,0 +1,45 @@
+﻿.completed-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #B5C7B3;
+    font-family: Arial, sans-serif;
+
+    .completed-message {
+        text-align: center;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 10px rgba(0, 0, 0, 0.1);
+
+        h2 {
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .btn-primary {
+            background-color: #fff;
+            color: #ff5722;
+            border: 2px solid #ff5722;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            transition: all ease-in-out 0.3s;
+            margin-top: 20px;
+
+            &:hover {
+                background-color: #ff5722;
+                color: white;
+            }
+        }
+    }
+}

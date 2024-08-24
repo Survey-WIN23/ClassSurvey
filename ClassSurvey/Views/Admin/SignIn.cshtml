@@ -1,1 +1,43 @@
-﻿<p>Här ska man kunna logga in senare!</p>
+﻿@{
+    ViewBag.Title = "Sign In";
+}
+
+<section id="signin">
+    <div class="main-holder container">
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger w-50 text-lg-center">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+        <div class="section-title">
+            <h3>Admin Login</h3>
+            <p>Vänligen logga in för att få åtkomst till adminpanelen.</p>
+        </div>
+
+        <div class="login-box">
+            <form asp-action="SignIn" asp-controller="Admin" method="post" novalidate>
+                <div class="email">
+                    <div class="validation">
+                        <span></span>
+                    </div>
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="email" placeholder="USERNAME" aria-label="Username"/>
+                </div>
+
+                <div class="password">
+                    <div class="validation">
+                        <span></span>
+                    </div>
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="PASSWORD" aria-label="Password" />
+                </div>
+                <div class="button-holder">
+                    <button type="submit" class="btn-theme">Sign in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

@@ -1,7 +1,9 @@
 using ClassSurvey.Contexts;
-using ClassSurvey.Repositories;
 using ClassSurvey.Services;
 using Microsoft.EntityFrameworkCore;
+using Polly;
+using Polly.Extensions.Http;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +13,22 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient("LimitedClient")
+    .AddPolicyHandler(GetRateLimitPolicy());
+
+static IAsyncPolicy<HttpResponseMessage> GetRateLimitPolicy()
+{
+    return HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+        .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+}
+
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddScoped<SurveyService>();
 
@@ -31,6 +45,7 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseSession();
