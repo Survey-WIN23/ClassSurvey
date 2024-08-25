@@ -29,9 +29,9 @@ namespace ClassSurvey.Helpers
                 foreach (var answer in group)
                 {
                     var optionValue = answer.SelectedOption?.Value ?? "No Option";
-                    if (optionsCount.ContainsKey(optionValue))
+                    if (optionsCount.TryGetValue(optionValue, out int value))
                     {
-                        optionsCount[optionValue]++;
+                        optionsCount[optionValue] = ++value;
                     }
                     else
                     {
