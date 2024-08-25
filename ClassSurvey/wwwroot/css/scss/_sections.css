@@ -486,14 +486,27 @@ header .navbar .nav-item.icon {
   padding: 10px;
   border-radius: 15px;
 }
-#signin .main-holder .section-title {
+#signin .main-holder .login-box {
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.1);
+  height: 500px;
+  width: 480px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+#signin .main-holder .login-box .section-title {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 2.5rem;
 }
-#signin .main-holder .section-title h3 {
+#signin .main-holder .login-box .section-title h3 {
   color: #e64a19;
   font-family: Arial, sans-serif;
   font-weight: 800;
@@ -501,21 +514,8 @@ header .navbar .nav-item.icon {
   margin-bottom: 1rem;
   text-align: center;
 }
-#signin .main-holder .section-title p {
-  color: #fff;
-}
-#signin .main-holder .login-box {
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.1);
-  height: 400px;
-  width: 480px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1.5rem;
+#signin .main-holder .login-box .section-title p {
+  color: #555;
 }
 #signin .main-holder .login-box .text-danger {
   color: #ff5722;
@@ -584,4 +584,79 @@ header .navbar .nav-item.icon {
 #signin .main-holder .login-box .button-holder .btn-theme:hover {
   background-color: #e64a19;
   border-color: #e64a19;
+}
+
+.dashboard {
+  background-color: #B5C7B3;
+  padding-top: 2rem;
+  height: 100%;
+}
+.dashboard .container {
+  background-color: #FFF;
+  border-radius: 15px;
+  padding: 15px 10px;
+}
+.dashboard .container h1 {
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #444;
+}
+.dashboard .container .row .col-md-6 .card .card-header {
+  background-color: #e64a19;
+  color: #FFF;
+}
+.dashboard .container .row .col-md-6 .card .card-body .btn {
+  background-color: #e64a19;
+  color: #FFF;
+}
+.dashboard .container .card .card-header {
+  background-color: #e64a19;
+  color: #FFF;
+}
+.dashboard .container .card .card-body .survey-count {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #ff5722;
+}
+
+.survey-data {
+  background-color: #B5C7B3;
+  padding-top: 30px;
+}
+.survey-data .container {
+  background-color: #FFF;
+  padding: 15px;
+  border-radius: 15px;
+}
+.survey-data .container .charts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.survey-data .container .charts-container .chart-box {
+  width: 100%;
+  max-width: 800px;
+  height: 300px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.survey-data .container .charts-container .chart-box h2 {
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  font-size: 24px;
+}
+.survey-data .container .charts-container .chart-box canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.survey-data .container .charts-container .chart-box .chart-divider {
+  border: 0;
+  border-top: 2px solid #333;
+  width: 100%;
+  margin: 20px 0;
 }

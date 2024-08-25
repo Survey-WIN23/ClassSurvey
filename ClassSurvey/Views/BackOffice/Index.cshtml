@@ -1,0 +1,48 @@
+﻿@model DashboardVM
+
+@{
+    ViewBag.Title = "Back Office Dashboard";
+}
+
+<section class="dashboard">
+
+    <div class="container mt-4">
+        <h1>Back Office Dashboard</h1>
+        <div class="row">
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Enkätdata</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Här kan du granska och analysera enkätdata.</p>
+                        <a href="@Url.Action("SurveyData", "BackOffice")" class="btn">Visa Enkätdata</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Hantera Frågor</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Här kan du lägga till, uppdatera eller ta bort frågor.</p>
+                        <a href="@Url.Action("ManageQuestions", "BackOffice")" class="btn">Hantera Frågor</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title">Senaste Aktivitet</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Totalt har <span class="survey-count">@Model.SurveyCount</span> personer svarat på enkäten</p>
+            </div>
+        </div>
+    </div>
+
+</section>

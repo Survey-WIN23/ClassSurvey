@@ -1,0 +1,50 @@
+﻿.dashboard {
+    background-color: #B5C7B3;
+    padding-top: 2rem;
+    height: 100%;
+
+    .container {
+        background-color: #FFF;
+        border-radius: 15px;
+        padding: 15px 10px;
+
+        h1 {
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .row {
+            .col-md-6 {
+                .card {
+                    .card-header {
+                        background-color: #e64a19;
+                        color: #FFF;
+                    }
+
+                    .card-body {
+                        .btn {
+                            background-color: #e64a19;
+                            color: #FFF;
+                        }
+                    }
+                }
+            }
+        }
+
+        .card {
+            .card-header {
+                background-color: #e64a19;
+                color: #FFF;
+            }
+
+            .card-body {
+                .survey-count {
+                    font-weight: 700;
+                    font-size: 1.3rem;
+                    color: #ff5722;
+                }
+            }
+        }
+    }
+}

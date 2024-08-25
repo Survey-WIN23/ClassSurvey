@@ -1,0 +1,42 @@
+﻿@model QuestionVM
+@{
+    ViewData["Title"] = "Add a New Question";
+}
+
+<section>
+    <div class="container mt-5">
+        <h1 class="text-center">Add a New Question</h1>
+        <form asp-action="AddQuestion" method="post" class="mt-4">
+            <div class="form-group">
+                <label for="QuestionText">Question Text</label>
+                <input type="text" class="form-control" id="QuestionText" asp-for="@Model.Question!.Type" placeholder="Enter your question here..." required>
+            </div>
+
+            <div class="form-group mt-3">
+                <label for="Type">Question Type</label>
+                <select class="form-control" id="Type" asp-for="@Model.Question!.Type" required>
+                    <option value="">Select question type...</option>
+                    <option value="MultipleChoice">Multiple Choice</option>
+                    <option value="FreeText">Free Text</option>
+                    <option value="MultipleChoiceWithFreeText">Multiple Choice with Free Text</option>
+                </select>
+            </div>
+
+            <div class="form-check mt-3">
+                <input type="checkbox" class="form-check-input" id="HasFreeText" asp-for="@Model.Question!.HasFreeText">
+                <label class="form-check-label" for="HasFreeText">Include a free text field</label>
+            </div>
+
+            <div class="form-group mt-4">
+                <label for="Options">Options (for Multiple Choice questions)</label>
+                @for (int i = 1; i < 6; i++)
+                {
+                    <input type="text" class="form-control mb-2" asp-for="Options[@i]" placeholder="Option @(i + 1)">
+                }
+                <small class="form-text text-muted">Add up to 5 options for multiple choice questions.</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-4">Add Question</button>
+        </form>
+    </div>
+</section>

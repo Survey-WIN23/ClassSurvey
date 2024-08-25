@@ -4,7 +4,7 @@ namespace ClassSurvey.ViewModels;
 
 public class QuestionVM
 {
-
+    public Question? Question { get; set; } 
     public List<Question> Questions { get; set; } = new List<Question>();
     public int TotalPages { get; set; }
     public int CurrentPage { get; set; }

@@ -1,0 +1,128 @@
+﻿@using Newtonsoft.Json
+@model List<AggregatedQuestionDataVM>
+
+<style>
+
+</style>
+<section class="survey-data">
+    <div class="container">
+        <h1>Survey Data</h1>
+
+        @if (Model is not null)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Question</th>
+                        <th>Options</th>
+                        <th>Response Text</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.QuestionId</td>
+                            <td>@item.QuestionText</td>
+                            <td>
+                                <ul>
+                                    @foreach (var option in item.OptionsCount)
+                                    {
+                                        <li>@option.Key: @option.Value</li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.ResponseText))
+                                {
+                                    <a href="#" data-toggle="modal" data-target="#responseModal-@item.QuestionId">View Response</a>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="responseModal-@item.QuestionId" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel-@item.QuestionId" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="responseModalLabel-@item.QuestionId">Response for Question @item.QuestionId</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>@item.ResponseText</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span>No response text</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="charts-container">
+                @foreach (var item in Model)
+                {
+                    <div class="chart-box">
+                        <h2>@item.QuestionText</h2>
+                        <canvas id="chart-@item.QuestionId"></canvas>
+                        <hr class="chart-divider" />
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                var ctx = document.getElementById('chart-@item.QuestionId').getContext('2d');
+                                var data = @Html.Raw(JsonConvert.SerializeObject(new
+                                {
+                                    labels = item.OptionsCount.Keys.ToList(),
+                                    values = item.OptionsCount.Values.ToList()
+                                }));
+
+                                new Chart(ctx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: data.labels,
+                                        datasets: [{
+                                            data: data.values,
+                                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#FFCD56', '#4BC0C0']
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        plugins: {
+                                            legend: {
+                                                position: 'top',
+                                            },
+                                            tooltip: {
+                                                callbacks: {
+                                                    label: function (tooltipItem) {
+                                                        return tooltipItem.label + ': ' + tooltipItem.raw;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <hr />
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>No survey data available.</p>
+        }
+
+    </div>
+</section>
+
+

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,6 +11,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ClassSurvey.styles.css" asp-append-version="true" />
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -19,15 +23,34 @@
                     <nav class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </nav>
-                    <nav class="nav-item icon">
-                        <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="SignIn"><i class="fa-solid fa-user-tie"></i></a>
-                    </nav>
+
+                    @if (!User.Identity!.IsAuthenticated)
+                    {
+                        <nav class="nav-item icon">
+                            <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="SignIn"><i class="fa-solid fa-user-tie"></i></a>
+                        </nav>
+                    }
+                    else
+                    {
+                        <nav class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="BackOffice" asp-action="Index">Admin Dashboard</a>
+                        </nav>
+                        <nav class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="SignOut" class="sign-out" title="Sign Out"><i class="fa-solid fa-right-from-bracket"></i></a>
+                        </nav>
+                    }
+
                 </div>
             </nav>
         </header>
 
         <main>
             @RenderBody()
+
+            <!-- Include jQuery -->
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <!-- Include Bootstrap JS -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         </main>
 
         <footer style="background-color: #B5C7B3">

@@ -6,7 +6,6 @@
 
 <section id="signin">
     <div class="main-holder container">
-
         @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
         {
             <div class="alert alert-danger w-50 text-lg-center">
@@ -14,34 +13,66 @@
             </div>
         }
 
-        <div class="section-title">
-            <h3>Admin Login</h3>
-            <p>Vänligen logga in för att få åtkomst till adminpanelen.</p>
-        </div>
-
         <div class="login-box">
-            <form asp-action="SignIn" asp-controller="Admin" method="post" novalidate>
-                <div class="email">
-                    <div class="validation">
-                        <label asp-for="Form.Email"></label>
-                        <span asp-validation-for="Form.Email"></span>
-                    </div>
-                    <i class="fa-regular fa-envelope"></i>
-                    <input asp-for="Form.Email" type="email" placeholder="USERNAME" aria-label="Username"/>
-                </div>
+            <div class="section-title">
+                <h3>@(ViewBag.ShowSetup != null && (bool)ViewBag.ShowSetup ? "Setup Admin" : "Admin Login")</h3>
+                <p>
+                    @(ViewBag.ShowSetup != null && (bool)ViewBag.ShowSetup
+                        ? "Please set up the Super Admin account."
+                        : "Please sign in to access the admin panel.")
+                </p>
+            </div>
 
-                <div class="password">
-                    <div class="validation">
-                        <label asp-for="Form.Password"></label>
-                        <span asp-validation-for="Form.Password"></span>
+            @if (ViewBag.ShowSetup != null && (bool)ViewBag.ShowSetup)
+            {
+                <form asp-action="SetupAdmin" asp-controller="Admin" method="post" novalidate>
+                    <div class="email">
+                        <div class="validation">
+                            <label for="adminEmail">Admin Email</label>
+                            <span asp-validation-for="Form.Email"></span>
+                        </div>
+                        <i class="fa-regular fa-envelope"></i>
+                        <input name="adminEmail" type="email" placeholder="USERNAME" aria-label="Username" required />
                     </div>
-                    <i class="fa-solid fa-lock"></i>
-                    <input asp-for="Form.Password" type="password" placeholder="PASSWORD" aria-label="Password" />
-                </div>
-                <div class="button-holder">
-                    <button type="submit" class="btn-theme">Sign in</button>
-                </div>
-            </form>
+
+                    <div class="password">
+                        <div class="validation">
+                            <label for="adminPassword">Admin Password</label>
+                            <span asp-validation-for="Form.Password"></span>
+                        </div>
+                        <i class="fa-solid fa-lock"></i>
+                        <input name="adminPassword" type="password" placeholder="PASSWORD" aria-label="Password" required />
+                    </div>
+                    <div class="button-holder">
+                        <button type="submit" class="btn-theme">Setup Admin</button>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <form asp-action="SignIn" asp-controller="Admin" method="post" novalidate>
+                    <div class="email">
+                        <div class="validation">
+                            <label asp-for="Form.Email"></label>
+                            <span asp-validation-for="Form.Email"></span>
+                        </div>
+                        <i class="fa-regular fa-envelope"></i>
+                        <input asp-for="Form.Email" type="email" placeholder="USERNAME" aria-label="Username" />
+                    </div>
+
+                    <div class="password">
+                        <div class="validation">
+                            <label asp-for="Form.Password"></label>
+                            <span asp-validation-for="Form.Password"></span>
+                        </div>
+                        <i class="fa-solid fa-lock"></i>
+                        <input asp-for="Form.Password" type="password" placeholder="PASSWORD" aria-label="Password" />
+                    </div>
+                    <div class="button-holder">
+                        <button type="submit" class="btn-theme">Sign in</button>
+                    </div>
+                </form>
+            }
         </div>
     </div>
 </section>

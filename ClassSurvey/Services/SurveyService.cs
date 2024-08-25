@@ -1,7 +1,10 @@
 ﻿using ClassSurvey.Factories;
 using ClassSurvey.Models;
+using ClassSurvey.ViewModels;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Text;
 
 namespace ClassSurvey.Services;
@@ -63,6 +66,89 @@ public class SurveyService(HttpClient http, IConfiguration configuration)
         }
     }
 
+    public async Task<IEnumerable<AnswerForm>> GetAnswersAsync()
+    {
+        try
+        {
+            var responseString = await _http.GetStringAsync("http://localhost:7121/api/getAnswers");
+
+            // Deserialisera responsen som en lista av ResponseResult
+            var responseResults = JsonConvert.DeserializeObject<List<ResponseResult>>(responseString);
+            var answers = new List<AnswerForm>();
+
+            if (responseResults != null)
+            {
+                foreach (var result in responseResults)
+                {
+                    if (result.ContentResult != null)
+                    {
+                        // Deserialisera ContentResult till AnswerForm
+                        var contentResultJson = result.ContentResult.ToString();
+                        var answer = JsonConvert.DeserializeObject<AnswerForm>(contentResultJson);
+
+                        if (answer != null)
+                        {
+                            answers.Add(answer);
+                        }
+                    }
+                }
+            }
+
+            return answers;
+        }
+        catch (Exception)
+        {
+            return [];
+        }
+    }
+
+    public List<AggregatedQuestionDataVM> AggregateData(IEnumerable<AnswerForm> answers, IEnumerable<Question> questions)
+    {
+        var questionDictionary = questions.ToDictionary(q => q.Id);
+        var aggregatedData = new List<AggregatedQuestionDataVM>();
+
+        var questionGroups = answers.GroupBy(a => a.QuestionId);
+
+        foreach (var group in questionGroups)
+        {
+            var questionId = group.Key;
+            var question = questionDictionary.GetValueOrDefault(questionId);
+
+            if (question == null)
+            {
+                Debug.WriteLine($"No question found with ID: {questionId}");
+                continue;
+            }
+
+            var optionsCount = new Dictionary<string, int>();
+
+            foreach (var answer in group)
+            {
+                var optionValue = answer.SelectedOption?.Value ?? "No Option";
+                if (optionsCount.ContainsKey(optionValue))
+                {
+                    optionsCount[optionValue]++;
+                }
+                else
+                {
+                    optionsCount[optionValue] = 1;
+                }
+            }
+
+            var responseText = group.FirstOrDefault()?.ResponseText ?? string.Empty;
+
+            aggregatedData.Add(new AggregatedQuestionDataVM
+            {
+                QuestionId = questionId,
+                QuestionText = question.QuestionText!,
+                OptionsCount = optionsCount,
+                ResponseText = responseText
+            });
+        }
+
+        return aggregatedData;
+    }
+
     public async Task<bool> SubmitAnswersAsync(List<AnswerForm> answer)
     {
         try
@@ -92,23 +178,29 @@ public class SurveyService(HttpClient http, IConfiguration configuration)
         }
     }
 
-    public bool ValidateQuestionAnswer(Question question, Option selectedOption, string freeTextAnswer)
+    public async Task<int> GetSurveyCountAsync()
     {
-        if (question.Type == QuestionType.MultipleChoice || question.Type == QuestionType.MultipleChoiceWithFreeText)
-        {
-            if (selectedOption is not null)
-            {
-                return false;
-            }
-        }
-
-        if (question.Type == QuestionType.FreeText || question.Type == QuestionType.MultipleChoiceWithFreeText)
-        {
-            if (string.IsNullOrEmpty(freeTextAnswer))
-            {
-                return false;
-            }
-        }
-        return true;
+        var response = await _http.GetStringAsync("http://localhost:7121/api/getAnswersCount");
+        return JsonConvert.DeserializeObject<int>(response);
     }
+
+    //public bool ValidateQuestionAnswer(Question question, Option selectedOption, string freeTextAnswer)
+    //{
+    //    if (question.Type == QuestionType.MultipleChoice || question.Type == QuestionType.MultipleChoiceWithFreeText)
+    //    {
+    //        if (selectedOption is not null)
+    //        {
+    //            return false;
+    //        }
+    //    }
+
+    //    if (question.Type == QuestionType.FreeText || question.Type == QuestionType.MultipleChoiceWithFreeText)
+    //    {
+    //        if (string.IsNullOrEmpty(freeTextAnswer))
+    //        {
+    //            return false;
+    //        }
+    //    }
+    //    return true;
+    //}
 }

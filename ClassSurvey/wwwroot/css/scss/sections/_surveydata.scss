@@ -1,0 +1,48 @@
+﻿.survey-data {
+    background-color: #B5C7B3;
+    padding-top: 30px;
+
+    .container {
+        background-color: #FFF;
+        padding: 15px;
+        border-radius: 15px;
+
+        .charts-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+
+            .chart-box {
+                width: 100%;
+                max-width: 800px;
+                height: 300px;
+                margin-bottom: 100px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+
+                h2 {
+                    margin: 0;
+                    text-align: center;
+                    width: 100%;
+                    font-size: 24px;
+                }
+
+                canvas {
+                    display: block;
+                    width: 100%; 
+                    height: auto;
+                }
+
+                .chart-divider {
+                    border: 0;
+                    border-top: 2px solid #333;
+                    width: 100%;
+                    margin: 20px 0;
+                }
+            }
+        }
+    }
+}

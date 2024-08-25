@@ -12,6 +12,7 @@ namespace ClassSurvey.Configurations
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddHttpClient();
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {

@@ -31,33 +31,14 @@
             border-radius: 15px;
         }
 
-        .section-title {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 2.5rem;
 
-            h3 {
-                color: #e64a19;
-                font-family: Arial, sans-serif;
-                font-weight: 800;
-                font-size: 1.95rem;
-                margin-bottom: 1rem;
-                text-align: center;
-            }
-
-            p {
-                color: #fff;
-            }
-        }
 
         .login-box {
             padding: 10px;
             background-color: #fff;
             border-radius: 20px;
             box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.1);
-            height: 400px;
+            height: 500px;
             width: 480px;
             position: relative;
             display: flex;
@@ -65,7 +46,26 @@
             justify-content: center;
             gap: 1.5rem;
 
+            .section-title {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 2.5rem;
 
+                h3 {
+                    color: #e64a19;
+                    font-family: Arial, sans-serif;
+                    font-weight: 800;
+                    font-size: 1.95rem;
+                    margin-bottom: 1rem;
+                    text-align: center;
+                }
+
+                p {
+                    color: #555;
+                }
+            }
 
             .text-danger {
                 color: #ff5722;
