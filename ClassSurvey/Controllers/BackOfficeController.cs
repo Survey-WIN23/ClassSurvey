@@ -1,17 +1,18 @@
-﻿using ClassSurvey.Models;
+﻿using ClassSurvey.Helpers;
+using ClassSurvey.Models;
 using ClassSurvey.Services;
 using ClassSurvey.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace ClassSurvey.Controllers;
 
 [Authorize(Roles = "SuperUser")]
-public class BackOfficeController(HttpClient httpClient, SurveyService surveyService) : Controller
+public class BackOfficeController(HttpClient httpClient, SurveyService surveyService, DataAggregationHelper dataAggregationHelper) : Controller
 {
     private readonly HttpClient _httpClient = httpClient;
     private readonly SurveyService _surveyService = surveyService;
+    private readonly DataAggregationHelper _dataAggregationHelper = dataAggregationHelper;
 
     public async Task<IActionResult> Index()
     {
@@ -31,7 +32,7 @@ public class BackOfficeController(HttpClient httpClient, SurveyService surveySer
 
         if (questions != null)
         {
-            var aggregatedData = _surveyService.AggregateData(answers, questions);
+            var aggregatedData = _dataAggregationHelper.AggregateData(answers, questions);
             return View(aggregatedData);
         }
 

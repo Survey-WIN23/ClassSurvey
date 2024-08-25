@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Polly.Extensions.Http;
 using Polly;
 using Microsoft.EntityFrameworkCore;
+using ClassSurvey.Helpers;
 
 namespace ClassSurvey.Configurations
 {
@@ -47,6 +48,7 @@ namespace ClassSurvey.Configurations
 
             services.AddDbContext<DataContext>(x => x.UseSqlServer(configuration.GetConnectionString("SqlServer")));
             services.AddScoped<SurveyService>();
+            services.AddScoped<DataAggregationHelper>();
         }
     }
 }
