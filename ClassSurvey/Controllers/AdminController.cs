@@ -1,5 +1,4 @@
 ﻿using ClassSurvey.Entities;
-using ClassSurvey.Models;
 using ClassSurvey.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -47,7 +46,6 @@ public class AdminController(UserManager<UserEntity> userManager, RoleManager<Id
                 ViewBag.ErrorMessage = "Invalid login attempt";
                 return View(viewModel);
             }
-
         }
         catch (Exception ex)
         {
@@ -77,12 +75,19 @@ public class AdminController(UserManager<UserEntity> userManager, RoleManager<Id
     [Authorize(Roles = "SuperUser")]
     public IActionResult SetupAdmin()
     {
-        if (_userManager.Users.Any(u => u.UserName == "ted.pieplow@gmail.com"))
+        try
         {
-            return RedirectToAction("Login", "Account");
-        }
+            if (_userManager.Users.Any(u => u.UserName == "ted.pieplow@gmail.com"))
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
-        return View();
+            return View();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
     [HttpPost]

@@ -4,40 +4,56 @@ using ClassSurvey.Services;
 using ClassSurvey.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace ClassSurvey.Controllers;
 
 [Authorize(Roles = "SuperUser")]
-public class BackOfficeController(HttpClient httpClient, SurveyService surveyService, DataAggregationHelper dataAggregationHelper) : Controller
+public class BackOfficeController(SurveyService surveyService, DataAggregationHelper dataAggregationHelper) : Controller
 {
-    private readonly HttpClient _httpClient = httpClient;
     private readonly SurveyService _surveyService = surveyService;
     private readonly DataAggregationHelper _dataAggregationHelper = dataAggregationHelper;
 
     public async Task<IActionResult> Index()
     {
-        var viewModel = new DashboardVM
+        try
         {
-            SurveyCount = await _surveyService.GetSurveyCountAsync()
-        };
+            var viewModel = new DashboardVM
+            {
+                SurveyCount = await _surveyService.GetSurveyCountAsync()
+            };
 
-        return View(viewModel);
+            return View(viewModel);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"{ex.Message}");
+            throw;
+        }
     }
 
     public async Task<IActionResult> SurveyData()
     {
-        var answers = await _surveyService.GetAnswersAsync();
-        var questionsResult = await _surveyService.GetQuestionsAsync();
-        var questions = questionsResult.ContentResult as List<Question>;
-
-        if (questions != null)
+        try
         {
-            var aggregatedData = _dataAggregationHelper.AggregateData(answers, questions);
-            return View(aggregatedData);
-        }
+            var answers = await _surveyService.GetAnswersAsync();
+            var questionsResult = await _surveyService.GetQuestionsAsync();
 
-        var viewModel = new AggregatedQuestionDataVM();
-        return View(viewModel);
+            if (questionsResult.ContentResult is List<Question> questions)
+            {
+                var aggregatedData = _dataAggregationHelper.AggregateData(answers, questions);
+                return View(aggregatedData);
+            }
+
+            var viewModel = new AggregatedQuestionDataVM();
+            return View(viewModel);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"{ex.Message}");
+            throw;
+        }
+       
     }
 
     public async Task<IActionResult> ManageQuestions()

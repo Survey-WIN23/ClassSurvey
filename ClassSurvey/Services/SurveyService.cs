@@ -133,27 +133,16 @@ public class SurveyService(HttpClient http, IConfiguration configuration)
 
     public async Task<int> GetSurveyCountAsync()
     {
-        var response = await _http.GetStringAsync("http://localhost:7121/api/getAnswersCount");
-        return JsonConvert.DeserializeObject<int>(response);
+        try
+        {
+            var response = await _http.GetStringAsync("http://localhost:7121/api/getAnswersCount");
+            return JsonConvert.DeserializeObject<int>(response);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return -1;
+        }
+
     }
-
-    //public bool ValidateQuestionAnswer(Question question, Option selectedOption, string freeTextAnswer)
-    //{
-    //    if (question.Type == QuestionType.MultipleChoice || question.Type == QuestionType.MultipleChoiceWithFreeText)
-    //    {
-    //        if (selectedOption is not null)
-    //        {
-    //            return false;
-    //        }
-    //    }
-
-    //    if (question.Type == QuestionType.FreeText || question.Type == QuestionType.MultipleChoiceWithFreeText)
-    //    {
-    //        if (string.IsNullOrEmpty(freeTextAnswer))
-    //        {
-    //            return false;
-    //        }
-    //    }
-    //    return true;
-    //}
 }
