@@ -4,10 +4,11 @@
 
 <section class="survey-data">
     <div class="container">
+
         <h1>Survey Data</h1>
 
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#overallAnalysisModal">
-            Visa sammanfattning
+            Visa AI-respons
         </button>
 
         @if (Model.Data is not null)
@@ -45,7 +46,7 @@
                                     <span>No response text</span>
                                 }
                             </td>
-                           
+
                         </tr>
                     }
                 </tbody>
@@ -119,8 +120,10 @@
         {
             <p>No survey data available.</p>
         }
+
     </div>
 </section>
+
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -129,7 +132,7 @@
         @foreach (var item in Model.Data!)
         {
             <text>
-                                var ctx = document.getElementById('chart-@item.QuestionId').getContext('2d');
+                                                        var ctx = document.getElementById('chart-@item.QuestionId').getContext('2d');
                 var data = @Html.Raw(JsonConvert.SerializeObject(new
                     {
                         labels = item.OptionsCount.Keys.ToList(),
@@ -163,7 +166,7 @@
                 });
             </text>
         }
-                });
+                                });
     </script>
 }
 
