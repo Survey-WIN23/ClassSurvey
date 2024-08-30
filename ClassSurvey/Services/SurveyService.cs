@@ -1,6 +1,7 @@
 ﻿using ClassSurvey.Factories;
 using ClassSurvey.Models;
 using ClassSurvey.ViewModels;
+using Markdig;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
@@ -143,6 +144,89 @@ public class SurveyService(HttpClient http, IConfiguration configuration)
             Debug.WriteLine(ex.Message);
             return -1;
         }
+    }
 
+    //public async Task<SurveyVM> GetAnalysisAsync()
+    //{
+    //    // Testdata för att simulera ett svar från OpenAI
+    //    var testAnalysisText = @"
+    //                            **Sammanfattning av enkätsvaren:**
+
+    //                            **Positiva aspekter:**
+    //                            - De flesta deltagare är mycket nöjda med utbildningens kvalitet och tycker att den var informativ och välstrukturerad. 
+    //                            - Många uppskattar den engagerande undervisningen och de praktiska övningarna som hjälper till att förstå teorin bättre.
+
+    //                            **Neutrala aspekter:**
+    //                            - Några deltagare har nämnt att utbildningen var bra men att vissa delar var lite repetitiva. 
+    //                            - Det finns kommentarer om att kursmaterialet kunde ha varit mer uppdaterat.
+
+    //                            **Negativa aspekter:**
+    //                            - En del deltagare upplever att utbildningen var för kort och att vissa ämnen inte täcktes tillräckligt djupgående.
+    //                            - Det finns också feedback om att logistik och schemaläggning kunde förbättras för att underlätta deltagarnas planering.
+
+    //                            **Exempel på citat:**
+    //                            - 'Utbildningen var fantastisk och lärorik, men vissa delar kändes överflödiga.'
+    //                            - 'Jag önskar att det fanns mer djupgående material om de avancerade ämnena.'
+
+    //                            **Bedömning:**
+    //                            - Den allmänna uppfattningen om utbildningen är positiv, men det finns utrymme för förbättringar, särskilt när det gäller längden på utbildningen och detaljeringsgraden i vissa ämnen.
+    //                            ";
+
+
+    //    var pipeline = new MarkdownPipelineBuilder()
+    //        .UseAdvancedExtensions() 
+    //        .Build(); 
+    //    string convertedToHTML = Markdown.ToHtml(testAnalysisText, pipeline);
+    //    return await Task.FromResult(new SurveyVM
+    //    {
+
+    //        Data = [],
+    //        OverallAnalysis = convertedToHTML
+    //    });
+    //}
+
+    // The "real" method when OpenAI is up and running.
+    public async Task<SurveyVM> GetAnalysisAsync()
+    {
+
+        var requestUrl = $"http://localhost:7121/api/getAIResponse";
+
+        try
+        {
+            var response = await _http.GetAsync(requestUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var apiAnalysisResults = await response.Content.ReadAsStringAsync();
+                if (apiAnalysisResults != null)
+                {
+
+                    var pipeline = new MarkdownPipelineBuilder()
+                                .UseAdvancedExtensions()
+                                .Build();
+
+                    string analysConvertedToHTML = Markdown.ToHtml(apiAnalysisResults, pipeline);
+                    return await Task.FromResult(new SurveyVM
+                    {
+
+                        OverallAnalysis = analysConvertedToHTML
+                    });
+                }
+            }
+            else
+            {
+                Debug.WriteLine($"API responded with error: {response.StatusCode}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error fetching analysis: {ex.Message}");
+        }
+
+        return new SurveyVM
+        {
+            Data = new List<AggregatedQuestionDataVM>(),
+            OverallAnalysis = null
+        };
     }
 }

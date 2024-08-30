@@ -627,6 +627,74 @@ header .navbar .nav-item.icon {
   background-color: #FFF;
   padding: 15px;
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* .modal {
+       display: flex;
+       justify-content: center;
+       align-content: center;
+       text-align: center;
+   }
+
+   .modal-body {
+       padding: 15px 0;
+       align-self: center;
+       text-align: center;
+       width: 700px;
+
+       h2 {
+           margin-top: 40px;
+       }
+
+       ul {
+           list-style-type: none;
+           padding: 0;
+           margin: 0;
+       }
+   }*/
+}
+.survey-data .container .btn {
+  display: block;
+  align-self: flex-end;
+  text-decoration: none;
+  border: none;
+  background-color: #ff5722;
+  border: 1px solid #ff5722;
+  color: #FFF;
+  font-size: inherit;
+  transition: color 0.3s ease;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+.survey-data .container .btn:hover {
+  background-color: #FFF;
+  border: 1px solid #ff5722;
+  box-sizing: border-box;
+  color: #ff5722;
+}
+.survey-data .container .modal-dialog {
+  max-width: 50%;
+  margin: 30px auto;
+}
+.survey-data .container .modal-content {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background-color: #fff;
+}
+.survey-data .container .modal-header {
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+}
+.survey-data .container .modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+.survey-data .container .modal-footer {
+  border-top: 1px solid #dee2e6;
+  padding-top: 10px;
 }
 .survey-data .container .charts-container {
   display: flex;

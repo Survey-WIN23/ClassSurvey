@@ -1,4 +1,6 @@
-﻿namespace ClassSurvey.ViewModels;
+﻿using ClassSurvey.Models;
+
+namespace ClassSurvey.ViewModels;
 
 public class AggregatedQuestionDataVM
 {

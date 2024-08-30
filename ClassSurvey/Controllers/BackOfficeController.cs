@@ -41,23 +41,49 @@ public class BackOfficeController(SurveyService surveyService, DataAggregationHe
 
             if (questionsResult.ContentResult is List<Question> questions)
             {
+                // Test data here.
                 var aggregatedData = _dataAggregationHelper.AggregateData(answers, questions);
-                return View(aggregatedData);
+                var analysisResponse = await _surveyService.GetAnalysisAsync();
+
+                var viewmodel = new SurveyVM
+                {
+                    Data = aggregatedData,
+                    OverallAnalysis = analysisResponse.OverallAnalysis,
+                };
+                return View(viewmodel);
             }
 
-            var viewModel = new AggregatedQuestionDataVM();
-            return View(viewModel);
+            var emptyViewModel = new SurveyVM
+            {
+                Data = new List<AggregatedQuestionDataVM>(),
+                OverallAnalysis = "No analysis available."
+            };
+
+            return View(emptyViewModel);
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"{ex.Message}");
             throw;
         }
-       
     }
 
-    public async Task<IActionResult> ManageQuestions()
-    {
-        return View();
-    }
+    //[HttpPost]
+    //public async Task<IActionResult> GetAnalysis()
+    //{
+    //    try
+    //    {
+    //        var analysisResponse = await _surveyService.GetAnalysisAsync();
+
+    //        return PartialView("_AnalysisPartial", analysisResponse);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        // Log exception and handle errors as needed
+    //        return PartialView("_AnalysisPartial", new AnalysisViewModel
+    //        {
+    //            OverallAnalysis = $"An error occurred: {ex.Message}"
+    //        });
+    //    }
+    //}
 }
