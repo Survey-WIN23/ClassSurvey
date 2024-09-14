@@ -1,0 +1,22 @@
+a {
+    display: inline-block;
+    @include text;
+    font-size: 1em;
+    text-decoration: none;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+    
+    // &[target="_blank"] {
+    //     &::after {
+    //         content: '\f08e';
+    //         font-family: 'Font Awesome 6 Pro';
+    //         display: inline-block;
+    //         font-size: .8em;
+    //         vertical-align: middle;
+    //         margin-left: .4em;
+    //         margin-top: -.9em;
+    //     }
+    // }
+}

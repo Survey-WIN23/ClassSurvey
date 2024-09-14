@@ -1,0 +1,42 @@
+@mixin button {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+@mixin btn {
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid;
+    padding: 15px 40px;
+    font-size: 16px;
+    transition: 0.25s;
+    text-decoration: none !important;
+    background-color: transparent;
+    @include button;
+
+    &:hover {
+        transform: 0.25s;
+        text-decoration: none !important;
+    }
+}
+
+@mixin btn-circle {
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid;
+    transition: 0.25s;
+    text-decoration: none !important;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    background-color: transparent;
+
+    &:hover {
+        transition: 0.25s;
+        text-decoration: none;
+    }
+}

@@ -1,12 +1,11 @@
 ﻿.index {
     position: relative;
-    background-color: #B5C7B3;
     margin: 0;
     overflow: hidden;
-    height: 100%;
+    height: 100vh;
 
     .container {
-        padding-top: 160px;
+        padding-top: 260px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -14,37 +13,42 @@
 
         .svg-left, .svg-right {
             position: absolute;
-            top: 37%;
+            top: 51%;
         }
 
         .svg-left {
-            left: 28%;
+            left: 18%;
             transform: scale(2);
         }
 
         .svg-right {
-            right: 25%;
+            right: 14%;
             transform: scale(2);
         }
 
         .section-title {
             text-align: center;
-            color: #ffffff;
             margin-bottom: 30px;
 
             h1 {
                 font-family: 'Arial Black', Gadget, sans-serif;
                 font-size: 4em;
                 margin: 0;
-                margin-bottom: 30px;
+                margin-bottom: 1.5rem;
                 font-weight: bold;
-                color: #ff5722;
                 text-align: center;
                 text-transform: uppercase;
+                color: var(--color-secondary);
             }
+
+            h3 {
+                margin: 0; 
+            }
+
 
             p {
                 font-size: 1.2em;
+                font-weight: 600;
                 margin-top: 10px;
                 line-height: 1.5;
                 max-width: 800px;
@@ -60,7 +64,6 @@
             overflow: hidden;
             display: inline-block;
             margin: 20px 0;
-            border-right: 2px solid #333;
             width: 100%;
             animation: typing 15s steps(100, end), blink-caret .75s step-end infinite;
         }
@@ -88,7 +91,6 @@
         .pulse-text {
             font-family: 'Arial Black', Gadget, sans-serif;
             font-size: 50px;
-            color: #ff5722;
             text-align: center;
             transform: scale(1.3);
         }
@@ -100,23 +102,6 @@
             margin-top: 10px;
         }
 
-        .custom-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #ff5722;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 5px;
-            border: 3px solid #ff5722;
-            text-decoration: none;
-            transition: background-color 0.5s, color 0.3s ease-in-out;
-        }
-
-        .custom-button:hover {
-            background-color: #B5C7B3;
-            color: #ff5722;
-        }
+       
     }
 }

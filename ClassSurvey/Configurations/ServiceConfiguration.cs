@@ -15,6 +15,7 @@ namespace ClassSurvey.Configurations
         {
             services.AddHttpClient();
             services.AddDistributedMemoryCache();
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -49,6 +50,8 @@ namespace ClassSurvey.Configurations
             services.AddDbContext<DataContext>(x => x.UseSqlServer(configuration.GetConnectionString("SqlServer")));
             services.AddScoped<SurveyService>();
             services.AddScoped<DataAggregationHelper>();
+            services.AddScoped<AdminService>();
+            services.AddScoped<JWTService>();
         }
     }
 }

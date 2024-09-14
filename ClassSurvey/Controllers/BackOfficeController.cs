@@ -9,10 +9,11 @@ using System.Diagnostics;
 namespace ClassSurvey.Controllers;
 
 [Authorize(Roles = "SuperUser")]
-public class BackOfficeController(SurveyService surveyService, DataAggregationHelper dataAggregationHelper) : Controller
+public class BackOfficeController(SurveyService surveyService, DataAggregationHelper dataAggregationHelper, AdminService adminService) : Controller
 {
     private readonly SurveyService _surveyService = surveyService;
     private readonly DataAggregationHelper _dataAggregationHelper = dataAggregationHelper;
+    private readonly AdminService _adminService = adminService;
 
     public async Task<IActionResult> Index()
     {
@@ -20,7 +21,7 @@ public class BackOfficeController(SurveyService surveyService, DataAggregationHe
         {
             var viewModel = new DashboardVM
             {
-                SurveyCount = await _surveyService.GetSurveyCountAsync()
+                SurveyCount = await _adminService.GetSurveyCountAsync()
             };
 
             return View(viewModel);
@@ -36,12 +37,11 @@ public class BackOfficeController(SurveyService surveyService, DataAggregationHe
     {
         try
         {
-            var answers = await _surveyService.GetAnswersAsync();
+            var answers = await _adminService.GetAnswersAsync();
             var questionsResult = await _surveyService.GetQuestionsAsync();
 
             if (questionsResult.ContentResult is List<Question> questions)
             {
-                // Test data here.
                 var aggregatedData = _dataAggregationHelper.AggregateData(answers, questions);
                 var analysisResponse = await _surveyService.GetAnalysisAsync();
 

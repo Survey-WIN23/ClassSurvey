@@ -1,4 +1,5 @@
 ﻿using ClassSurvey.Entities;
+using ClassSurvey.Services;
 using ClassSurvey.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -7,11 +8,12 @@ using System.Diagnostics;
 
 namespace ClassSurvey.Controllers;
 
-public class AdminController(UserManager<UserEntity> userManager, RoleManager<IdentityRole> roleManager, SignInManager<UserEntity> signInManager) : Controller
+public class AdminController(UserManager<UserEntity> userManager, RoleManager<IdentityRole> roleManager, SignInManager<UserEntity> signInManager, JWTService jwtService) : Controller
 {
     private readonly UserManager<UserEntity> _userManager = userManager;
     private readonly RoleManager<IdentityRole> _roleManager = roleManager;
     private readonly SignInManager<UserEntity> _signInManager = signInManager;
+    private readonly JWTService _jwtService = jwtService;
 
     [HttpGet]
     public IActionResult SignIn()
@@ -25,27 +27,48 @@ public class AdminController(UserManager<UserEntity> userManager, RoleManager<Id
     }
 
     [HttpPost]
-    public async Task<IActionResult> SignIn(SignInVM viewModel)
+    public async Task<IActionResult> SignIn(SignInVM viewModel, string returnUrl)
     {
         try
         {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.ErrorMessage = "Invalid username or password";
-                return View(viewModel);
-            }
+            ViewData["ReturnUrl"] = returnUrl ?? Url.Content("~/");
+            ViewData["SignIn"] = "Sign In";
 
+            //if (!ModelState.IsValid)
+            //{
+            //    ViewBag.ErrorMessage = "Invalid username or password";
+            //    return View(viewModel);
+            //}
             var result = await _signInManager.PasswordSignInAsync(viewModel.Form.Email, viewModel.Form.Password, isPersistent: false, lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "BackOffice"); 
+                var token = _jwtService.GenerateToken(viewModel.Form.Email);
+
+                if (token is not null)
+                {
+                    var cookieOptions = new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                        Expires = DateTime.Now.AddDays(1)
+                    };
+
+                    Response.Cookies.Append("AccessToken", token, cookieOptions);
+
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "BackOffice");
+                    }
+                }
             }
-            else
-            {
-                ViewBag.ErrorMessage = "Invalid login attempt";
-                return View(viewModel);
-            }
+            ViewBag.ErrorMessage = "Invalid username or password";
+            return View(viewModel);
+
         }
         catch (Exception ex)
         {

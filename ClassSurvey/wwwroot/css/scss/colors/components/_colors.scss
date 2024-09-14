@@ -1,0 +1,39 @@
+:root {
+    --color-default: #6B3E75; /* Mörk lila */
+    --color-dark: #1D2028; /* Djup mörkblå */
+    --color-primary: #379683; /* Mjuk teal */
+    --color-primary-light: #5FB49C; /* Ljusare teal */
+    --color-primary-dark: #276359; /* Mörkare teal */
+    --color-secondary: #F18F01; /* Ljus orange för accent */
+    --color-accent: #FFDDC1; /* Varm ljus persika */
+    --color-gray: #EAEAEA; /* Ljusgrå för bakgrunder */
+    --color-light: #FFFFFF; /* Ren vit */
+    --color-border-dark: #4A3D54; /* Mörk lila kantlinje */
+    --color-border-dark-transparent: rgba(74, 61, 84, 0.1); /* Transparent mörk lila */
+    --color-border-primary: #326E66; /* Mörkare teal för kantlinjer */
+    --color-border-secondary: #E67300; /* Starkare orange */
+    --color-border-accent: #F2D7B5; /* Ljusare accentfärg för kantlinjer */
+    --color-border-gray: #D6D6D6; /* Ljusgrå */
+    --color-border-light: #F9F9F9; /* Nästan vit för tunna kantlinjer */
+    --color-border-light-transparent: rgba(255, 255, 255, 0.95); /* Transparent vit */
+}
+
+:root.dark-theme {
+    --color-default: #FFDDC1; 
+    --color-dark: #F9F9F9; 
+    --color-primary: #F18F01; 
+    --color-primary-light: #E67300; 
+    --color-primary-dark: #D6D6D6;
+    --color-secondary: #6B3E75; 
+    --color-accent: #1D2028; 
+    --color-gray: #326E66;
+    --color-light: #1D2028; 
+    --color-border-dark: #FFDDC1; 
+    --color-border-dark-transparent: rgba(255, 221, 193, 0.1); 
+    --color-border-primary: #5FB49C;
+    --color-border-secondary: #4A3D54; 
+    --color-border-accent: #379683; 
+    --color-border-gray: #276359; 
+    --color-border-light: #1D2028; 
+    --color-border-light-transparent: rgba(29, 32, 40, 0.95); 
+}

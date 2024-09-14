@@ -1,0 +1,40 @@
+@mixin tablet {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin small-desktop {
+    @media (min-width: 1200px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: 1650px) {
+        @content;
+    }
+}
+
+@mixin ultra-wide {
+    @media (min-width: 1920px) {
+        @content;
+    }
+}
+
+.container {
+    width: 100%;
+
+    @include tablet {
+        max-width: 720px;
+    }
+
+    @include desktop {
+        max-width: 1320px;
+    }
+
+    @include ultra-wide {
+        max-width: 1920px;
+    }
+}
+

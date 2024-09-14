@@ -10,16 +10,14 @@ using System.Text;
 
 namespace ClassSurvey.Services;
 
-public class SurveyService(HttpClient http, IConfiguration configuration)
+public class SurveyService(HttpClient http, IConfiguration configuration, JWTService jwtService)
 {
     private readonly HttpClient _http = http;
     private readonly IConfiguration _configuration = configuration;
+    private readonly JWTService _jwtService = jwtService;
 
     public async Task<ResponseResult> GetQuestionsAsync()
     {
-        // Gör en questionresult istället för att hantera callet snyggare?
-        // Annars måste jag antingen köra dubbla serializers (Först ResponseResult, sen till Question).
-        // Alternativt en JArray där content-result hämtas ut. 
         try
         {
             var response = await _http.GetAsync("http://localhost:7121/api/questions");
@@ -67,42 +65,6 @@ public class SurveyService(HttpClient http, IConfiguration configuration)
         }
     }
 
-    public async Task<IEnumerable<AnswerForm>> GetAnswersAsync()
-    {
-        try
-        {
-            var responseString = await _http.GetStringAsync("http://localhost:7121/api/getAnswers");
-
-            // Deserialisera responsen som en lista av ResponseResult
-            var responseResults = JsonConvert.DeserializeObject<List<ResponseResult>>(responseString);
-            var answers = new List<AnswerForm>();
-
-            if (responseResults != null)
-            {
-                foreach (var result in responseResults)
-                {
-                    if (result.ContentResult != null)
-                    {
-                        // Deserialisera ContentResult till AnswerForm
-                        var contentResultJson = result.ContentResult.ToString();
-                        var answer = JsonConvert.DeserializeObject<AnswerForm>(contentResultJson);
-
-                        if (answer != null)
-                        {
-                            answers.Add(answer);
-                        }
-                    }
-                }
-            }
-
-            return answers;
-        }
-        catch (Exception)
-        {
-            return [];
-        }
-    }
-
     public async Task<bool> SubmitAnswersAsync(List<AnswerForm> answer)
     {
         try
@@ -132,19 +94,7 @@ public class SurveyService(HttpClient http, IConfiguration configuration)
         }
     }
 
-    public async Task<int> GetSurveyCountAsync()
-    {
-        try
-        {
-            var response = await _http.GetStringAsync("http://localhost:7121/api/getAnswersCount");
-            return JsonConvert.DeserializeObject<int>(response);
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return -1;
-        }
-    }
+
 
     //public async Task<SurveyVM> GetAnalysisAsync()
     //{

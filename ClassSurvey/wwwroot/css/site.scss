@@ -1,2 +1,13 @@
-@import 'scss/_sections.scss';
-@import 'scss/_core.scss';
+@import "./scss/mixins/mixins";
+
+@import "./scss/misc/base";
+
+@import "scss/colors/theme.scss";
+
+@import "./scss/components/wrapper";
+@import "./scss/components/container";
+@import "./scss/components/links";
+@import "./scss/components/buttons";
+@import "./scss/components/typography";
+
+@import'./scss/sections/sections';

@@ -5,7 +5,7 @@
         @if (Model.Questions.Any())
         {
             <div class="section-title">
-                <h1><span class="heavy-text"> WIN23 </span>  <span>|| Klassrådsundersökning</span></h1>
+                <h2><span class="heavy-text"> WIN23 </span>  <span>|| Klassrådsundersökning</span></h2>
             </div>
 
             <div class="progression-container">
@@ -51,7 +51,7 @@
                     <div class="btn-back">
                         @if (Model.CurrentPage > 1)
                         {
-                            <button type="submit" formaction="@Url.Action("SaveAnswer", new { pageNumber = Model.CurrentPage - 1, isPreviousPage = true})" class="navigate-btn">Föregående</button>
+                            <button type="submit" formaction="@Url.Action("SaveAnswer", new { pageNumber = Model.CurrentPage - 1, isPreviousPage = true})" class="btn-secondary">Föregående</button>
                         }
                         else
                         {
@@ -62,11 +62,11 @@
                     <div class="btn-next">
                         @if (Model.CurrentPage < Model.TotalPages)
                         {
-                            <button type="submit" formaction="@Url.Action("SaveAnswer", new { pageNumber = Model.CurrentPage + 1})" class="navigate-btn">Nästa</button>
+                            <button type="submit" formaction="@Url.Action("SaveAnswer", new { pageNumber = Model.CurrentPage + 1})" class="btn-secondary">Nästa</button>
                         }
                         else
                         {
-                            <button type="submit" formaction="@Url.Action("SaveAnswer", new { pageNumber = Model.CurrentPage, isFinalSubmit = true })" class="btn btn-primary">Skicka in</button>
+                            <button type="submit" formaction="@Url.Action("SaveAnswer", new { pageNumber = Model.CurrentPage, isFinalSubmit = true })" class="btn-secondary">Skicka in</button>
                         }
                     </div>
                 </div>
