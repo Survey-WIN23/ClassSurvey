@@ -1,7 +1,29 @@
+
 body {
     color: var(--color-default);
+    transition: background-color 0.3s ease;
 }
 
 span {
     color: var(--color-secondary);
+}
+
+.theme-hidden {
+    visibility: hidden;
+}
+
+.theme-visible {
+    visibility: visible;
+}
+
+html {
+    visibility: hidden;
+}
+
+html.theme-visible {
+    visibility: visible;
+}
+
+body.theme-hidden {
+    visibility: hidden;
 }

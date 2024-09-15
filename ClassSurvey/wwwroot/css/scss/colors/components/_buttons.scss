@@ -83,7 +83,7 @@
 
 @include theme-buttons(
     'light',
-    (--color-dark, --color-light, --color-accent, --color-primary, --color-border-dark),
+    (--color-dark, --color-light, --color-secondary, --color-default, --color-border-dark),
     (--color-primary, --color-accent, --color-accent, --color-primary, --color-primary),
     (--color-secondary, --color-primary, --color-accent, --color-primary, --color-secondary),
     (--color-accent, --color-primary, --color-primary, --color-accent, --color-accent),

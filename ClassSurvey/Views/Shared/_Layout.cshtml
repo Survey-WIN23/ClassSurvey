@@ -2,7 +2,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="@((ViewBag.Theme == "dark") ? "dark-theme" : "") theme-hidden">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,6 +14,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script defer src="~/js/darkMode.js" asp-append-version="true"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -22,9 +23,20 @@
             <nav class="navbar">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ClassSurvey</a>
                 <div class="nav-container">
+
+                    <div class="btn-switch">
+                        <label>Light</label>
+                        <label class="switch" for="switch-mode">
+                            <input type="checkbox" id="switch-mode" />
+                            <span class="slider round" id="slider"></span>
+                        </label>
+                        <label>Dark</label>
+                    </div>
+
                     <nav class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </nav>
+
 
                     @if (!User.Identity!.IsAuthenticated)
                     {

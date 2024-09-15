@@ -1,5 +1,4 @@
-﻿@charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+﻿@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 .container {
   width: 100%;
 }
@@ -56,23 +55,23 @@ span {
 }
 
 :root {
-  --color-default: #6B3E75; /* Mörk lila */
-  --color-dark: #1D2028; /* Djup mörkblå */
-  --color-primary: #379683; /* Mjuk teal */
-  --color-primary-light: #5FB49C; /* Ljusare teal */
-  --color-primary-dark: #276359; /* Mörkare teal */
-  --color-secondary: #F18F01; /* Ljus orange för accent */
-  --color-accent: #FFDDC1; /* Varm ljus persika */
-  --color-gray: #EAEAEA; /* Ljusgrå för bakgrunder */
-  --color-light: #FFFFFF; /* Ren vit */
-  --color-border-dark: #4A3D54; /* Mörk lila kantlinje */
-  --color-border-dark-transparent: rgba(74, 61, 84, 0.1); /* Transparent mörk lila */
-  --color-border-primary: #326E66; /* Mörkare teal för kantlinjer */
-  --color-border-secondary: #E67300; /* Starkare orange */
-  --color-border-accent: #F2D7B5; /* Ljusare accentfärg för kantlinjer */
-  --color-border-gray: #D6D6D6; /* Ljusgrå */
-  --color-border-light: #F9F9F9; /* Nästan vit för tunna kantlinjer */
-  --color-border-light-transparent: rgba(255, 255, 255, 0.95); /* Transparent vit */
+  --color-default: #6B3E75;
+  --color-dark: #1D2028;
+  --color-primary: #379683;
+  --color-primary-light: #5FB49C;
+  --color-primary-dark: #276359;
+  --color-secondary: #F18F01;
+  --color-accent: #FFDDC1;
+  --color-gray: #EAEAEA;
+  --color-light: #FFFFFF;
+  --color-border-dark: #4A3D54;
+  --color-border-dark-transparent: rgba(74, 61, 84, 0.1);
+  --color-border-primary: #326E66;
+  --color-border-secondary: #E67300;
+  --color-border-accent: #F2D7B5;
+  --color-border-gray: #D6D6D6;
+  --color-border-light: #F9F9F9;
+  --color-border-light-transparent: rgba(255, 255, 255, 0.95);
 }
 
 :root.dark-theme {
@@ -82,7 +81,7 @@ span {
   --color-primary-light: #E67300;
   --color-primary-dark: #D6D6D6;
   --color-secondary: #6B3E75;
-  --color-accent: #1D2028;
+  --color-accent: #F18F01;
   --color-gray: #326E66;
   --color-light: #1D2028;
   --color-border-dark: #FFDDC1;
@@ -97,21 +96,42 @@ span {
 
 body {
   color: var(--color-default);
+  transition: background-color 0.3s ease;
 }
 
 span {
   color: var(--color-secondary);
 }
 
+.theme-hidden {
+  visibility: hidden;
+}
+
+.theme-visible {
+  visibility: visible;
+}
+
+html {
+  visibility: hidden;
+}
+
+html.theme-visible {
+  visibility: visible;
+}
+
+body.theme-hidden {
+  visibility: hidden;
+}
+
 a {
   color: var(--color-secondary);
 }
 a:hover {
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .bg-dark a {
-  color: var(--color-light);
+  color: var(--color-secondary);
 }
 .bg-dark a:hover {
   color: var(--color-accent);
@@ -146,10 +166,10 @@ a:hover {
 }
 
 .bg-light a {
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }
 .bg-light a:hover {
-  color: var(--color-primary);
+  color: var(--color-default);
 }
 
 .btn-dark {
@@ -845,9 +865,9 @@ a:hover {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .bg-light .btn-dark:hover {
-  background-color: var(--color-accent);
-  color: var(--color-primary);
-  border-color: var(--color-accent);
+  background-color: var(--color-secondary);
+  color: var(--color-default);
+  border-color: var(--color-secondary);
 }
 .bg-light .btn-dark:hover, .bg-light .btn-dark:focus, .bg-light .btn-dark:active {
   outline: none !important;
@@ -1389,7 +1409,7 @@ h6 {
 .survey .container .progression-container .progress-bar-wrapper .progress-bar {
   height: 100%;
   width: 0;
-  background-color: #ff5722;
+  background-color: #F18F01;
   transition: width 0.4s ease-in-out;
 }
 .survey .container .text-wrapper {
@@ -1398,23 +1418,21 @@ h6 {
   justify-content: center;
   width: 80%;
   max-width: 1000px;
-  height: 70px;
   border-radius: 10px;
   box-shadow: 4px 8px 16px 4px rgba(0, 0, 0, 0.15);
   margin-bottom: 1.2rem;
   font-size: 18px;
 }
 .survey .container .text-wrapper p {
-  padding: 10px;
+  padding: 20px;
   margin: 0;
 }
 .survey .container .questions-container {
   display: flex;
   flex-direction: column;
-  width: 80%;
   max-width: 1000px;
   align-items: center;
-  padding: 1em;
+  padding: 12em;
 }
 .survey .container .question-wrapper {
   display: flex;
@@ -1423,10 +1441,11 @@ h6 {
   width: 80%;
   max-width: 1000px;
   padding: 20px;
+  padding-top: 30px;
   box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 4px 8px 16px 10px rgba(0, 0, 0, 0.15);
-  height: 400px;
+  height: 500px;
 }
 .survey .container .question-wrapper .question-text {
   padding: 15px;
@@ -1439,6 +1458,7 @@ h6 {
 }
 .survey .container .question-wrapper ul li {
   margin-bottom: 0.8rem;
+  font-weight: 700;
 }
 .survey .container .question-wrapper ul li input[type=radio] {
   appearance: none;
@@ -1458,7 +1478,7 @@ h6 {
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
-  background-color: #ff5722;
+  background-color: #F18F01;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1501,7 +1521,7 @@ h6 {
 }
 .survey .container .question-wrapper textarea:focus {
   outline: none;
-  border-bottom-color: #ff5722;
+  border-bottom-color: #F18F01;
   transition: border-bottom-color 0.3s ease;
 }
 .survey .container .completed-container {
@@ -1532,13 +1552,11 @@ h6 {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #B5C7B3;
   font-family: Arial, sans-serif;
 }
 
 .completed-message {
   text-align: center;
-  background: white;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 10px rgba(0, 0, 0, 0.1);
@@ -1546,11 +1564,6 @@ h6 {
 
 .completed-message h2 {
   margin-bottom: 10px;
-  color: #333;
-}
-
-.completed-message p {
-  color: #666;
 }
 
 header .navbar {
@@ -1564,6 +1577,68 @@ header .navbar .nav-container {
   display: flex;
   flex-direction: row;
   gap: 20px;
+}
+header .navbar .nav-container .btn-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header .navbar .nav-container .btn-switch label {
+  line-height: 160%;
+  font-weight: 400;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  color: #6B3E75;
+  font-weight: 600 !important;
+}
+header .navbar .nav-container .btn-switch .switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 26px;
+}
+header .navbar .nav-container .btn-switch .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+header .navbar .nav-container .btn-switch .switch input:checked + .slider {
+  background-color: #F18F01;
+}
+header .navbar .nav-container .btn-switch .switch input:focus + .slider {
+  box-shadow: 0 0 1px #F18F01;
+}
+header .navbar .nav-container .btn-switch .switch input:checked + .slider:before {
+  transform: translateX(20px) scale(1.3);
+  background-color: #F18F01;
+  background-image: url("/images/white-moon.svg");
+  background-size: cover;
+}
+header .navbar .nav-container .btn-switch .switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #4A3D54;
+  transition: 0.4s;
+}
+header .navbar .nav-container .btn-switch .switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 2.7px;
+  background-color: #ffffff;
+  transition: 0.4s;
+}
+header .navbar .nav-container .btn-switch .switch .slider.round {
+  border-radius: 34px;
+}
+header .navbar .nav-container .btn-switch .switch .slider.round:before {
+  border-radius: 50%;
 }
 header .navbar .nav-item.icon {
   margin-left: auto;
@@ -1601,40 +1676,23 @@ header .navbar .nav-item.icon {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #B5C7B3;
   font-family: Arial, sans-serif;
 }
 .completed-container .completed-message {
   text-align: center;
-  background: white;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 10px rgba(0, 0, 0, 0.1);
 }
 .completed-container .completed-message h2 {
   margin-bottom: 15px;
-  color: #333;
   font-weight: 600;
 }
 .completed-container .completed-message p {
-  color: #555;
   margin-bottom: 5px;
 }
-.completed-container .completed-message .btn-primary {
-  background-color: #fff;
-  color: #ff5722;
-  border: 2px solid #ff5722;
-  padding: 10px 20px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 16px;
-  display: inline-block;
-  transition: all ease-in-out 0.3s;
-  margin-top: 20px;
-}
-.completed-container .completed-message .btn-primary:hover {
-  background-color: #ff5722;
-  color: white;
+.completed-container .completed-message a {
+  margin-top: 25px;
 }
 
 #signin {
@@ -1752,7 +1810,7 @@ header .navbar .nav-item.icon {
 
 .dashboard {
   padding-top: 2rem;
-  height: 100%;
+  height: 100vh;
 }
 .dashboard .container {
   border-radius: 15px;
@@ -1771,12 +1829,33 @@ header .navbar .nav-item.icon {
   padding-top: 30px;
 }
 .survey-data .container {
-  background-color: #FFF;
   padding: 15px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.survey-data .container .table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.survey-data .container .table th,
+.survey-data .container .table td {
+  border: 1px solid #ddd;
+}
+.survey-data .container .table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+.survey-data .container .table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+.survey-data .container .table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+.survey-data .container .table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
 }
 .survey-data .container .btn {
   display: block;
@@ -1799,7 +1878,7 @@ header .navbar .nav-item.icon {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  background-color: #fff;
+  color: #000;
 }
 .survey-data .container .modal-header {
   border-bottom: 1px solid #dee2e6;
@@ -1808,7 +1887,6 @@ header .navbar .nav-item.icon {
 .survey-data .container .modal-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
 }
 .survey-data .container .modal-footer {
   border-top: 1px solid #dee2e6;

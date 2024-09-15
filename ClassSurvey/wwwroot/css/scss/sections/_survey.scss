@@ -62,7 +62,7 @@
                 .progress-bar {
                     height: 100%;
                     width: 0;
-                    background-color: #ff5722;
+                    background-color: #F18F01;
                     transition: width 0.4s ease-in-out;
                 }
             }
@@ -74,14 +74,13 @@
             justify-content: center;
             width: 80%;
             max-width: 1000px;
-            height: 70px;
             border-radius: 10px;
             box-shadow: 4px 8px 16px 4px rgba(0, 0, 0, 0.15);
             margin-bottom: 1.2rem;
             font-size: 18px;
 
             p {
-                padding: 10px;
+                padding: 20px;
                 margin: 0;
             }
         }
@@ -89,10 +88,9 @@
         .questions-container {
             display: flex;
             flex-direction: column;
-            width: 80%;
             max-width: 1000px;
             align-items: center;
-            padding: 1em;
+            padding: 12em;
         }
 
         .question-wrapper {
@@ -102,10 +100,11 @@
             width: 80%;
             max-width: 1000px;
             padding: 20px;
+            padding-top: 30px;
             box-sizing: border-box;
             border-radius: 10px;
             box-shadow: 4px 8px 16px 10px rgba(0, 0, 0, 0.15);
-            height: 400px;
+            height: 500px;
 
 
 
@@ -121,6 +120,7 @@
 
                 li {
                     margin-bottom: .8rem;
+                    font-weight: 700;
 
                     input[type="radio"] {
                         appearance: none;
@@ -141,7 +141,7 @@
                         width: 0.5rem;
                         height: 0.5rem;
                         border-radius: 50%;
-                        background-color: #ff5722;
+                        background-color: #F18F01;
                         position: absolute;
                         top: 50%;
                         left: 50%;
@@ -191,7 +191,7 @@
 
             textarea:focus {
                 outline: none;
-                border-bottom-color: #ff5722;
+                border-bottom-color: #F18F01;
                 transition: border-bottom-color 0.3s ease;
             }
         }

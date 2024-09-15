@@ -1,11 +1,11 @@
 @include link-colors(
     --color-secondary,
-    --color-primary
+    --color-accent
 );
 
 @include theme-links(
     'dark',
-    --color-light,
+    --color-secondary,
     --color-accent
 );
 
@@ -35,6 +35,7 @@
 
 @include theme-links(
     'light',
-    --color-primary,
-    --color-primary
+    --color-secondary,
+    --color-default
 );
+

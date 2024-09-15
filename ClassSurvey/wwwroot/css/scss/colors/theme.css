@@ -1,22 +1,21 @@
-﻿@charset "UTF-8";
-:root {
-  --color-default: #6B3E75; /* Mörk lila */
-  --color-dark: #1D2028; /* Djup mörkblå */
-  --color-primary: #379683; /* Mjuk teal */
-  --color-primary-light: #5FB49C; /* Ljusare teal */
-  --color-primary-dark: #276359; /* Mörkare teal */
-  --color-secondary: #F18F01; /* Ljus orange för accent */
-  --color-accent: #FFDDC1; /* Varm ljus persika */
-  --color-gray: #EAEAEA; /* Ljusgrå för bakgrunder */
-  --color-light: #FFFFFF; /* Ren vit */
-  --color-border-dark: #4A3D54; /* Mörk lila kantlinje */
-  --color-border-dark-transparent: rgba(74, 61, 84, 0.1); /* Transparent mörk lila */
-  --color-border-primary: #326E66; /* Mörkare teal för kantlinjer */
-  --color-border-secondary: #E67300; /* Starkare orange */
-  --color-border-accent: #F2D7B5; /* Ljusare accentfärg för kantlinjer */
-  --color-border-gray: #D6D6D6; /* Ljusgrå */
-  --color-border-light: #F9F9F9; /* Nästan vit för tunna kantlinjer */
-  --color-border-light-transparent: rgba(255, 255, 255, 0.95); /* Transparent vit */
+﻿:root {
+  --color-default: #6B3E75;
+  --color-dark: #1D2028;
+  --color-primary: #379683;
+  --color-primary-light: #5FB49C;
+  --color-primary-dark: #276359;
+  --color-secondary: #F18F01;
+  --color-accent: #FFDDC1;
+  --color-gray: #EAEAEA;
+  --color-light: #FFFFFF;
+  --color-border-dark: #4A3D54;
+  --color-border-dark-transparent: rgba(74, 61, 84, 0.1);
+  --color-border-primary: #326E66;
+  --color-border-secondary: #E67300;
+  --color-border-accent: #F2D7B5;
+  --color-border-gray: #D6D6D6;
+  --color-border-light: #F9F9F9;
+  --color-border-light-transparent: rgba(255, 255, 255, 0.95);
 }
 
 :root.dark-theme {
@@ -26,7 +25,7 @@
   --color-primary-light: #E67300;
   --color-primary-dark: #D6D6D6;
   --color-secondary: #6B3E75;
-  --color-accent: #1D2028;
+  --color-accent: #F18F01;
   --color-gray: #326E66;
   --color-light: #1D2028;
   --color-border-dark: #FFDDC1;
@@ -41,21 +40,42 @@
 
 body {
   color: var(--color-default);
+  transition: background-color 0.3s ease;
 }
 
 span {
   color: var(--color-secondary);
 }
 
+.theme-hidden {
+  visibility: hidden;
+}
+
+.theme-visible {
+  visibility: visible;
+}
+
+html {
+  visibility: hidden;
+}
+
+html.theme-visible {
+  visibility: visible;
+}
+
+body.theme-hidden {
+  visibility: hidden;
+}
+
 a {
   color: var(--color-secondary);
 }
 a:hover {
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .bg-dark a {
-  color: var(--color-light);
+  color: var(--color-secondary);
 }
 .bg-dark a:hover {
   color: var(--color-accent);
@@ -90,10 +110,10 @@ a:hover {
 }
 
 .bg-light a {
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }
 .bg-light a:hover {
-  color: var(--color-primary);
+  color: var(--color-default);
 }
 
 .btn-dark {
@@ -789,9 +809,9 @@ a:hover {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .bg-light .btn-dark:hover {
-  background-color: var(--color-accent);
-  color: var(--color-primary);
-  border-color: var(--color-accent);
+  background-color: var(--color-secondary);
+  color: var(--color-default);
+  border-color: var(--color-secondary);
 }
 .bg-light .btn-dark:hover, .bg-light .btn-dark:focus, .bg-light .btn-dark:active {
   outline: none !important;

@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 		<Content Remove="compilerconfig.json" />
+		<Content Remove="wwwroot\js\darkMode.js" />
 		<Content Remove="wwwroot\js\fetchquestion.js" />
 		<Content Remove="wwwroot\js\formvalidation.js" />
 	</ItemGroup>
@@ -15,6 +16,7 @@
 	<ItemGroup>
 		<_ContentIncludedByDefault Remove="compilerconfig.json" />
 		<_ContentIncludedByDefault Remove="wwwroot\css\site.min.css" />
+		<_ContentIncludedByDefault Remove="wwwroot\js\darkMode.js" />
 		<_ContentIncludedByDefault Remove="wwwroot\js\fetchquestion.js" />
 		<_ContentIncludedByDefault Remove="wwwroot\js\formvalidation.js" />
 	</ItemGroup>
@@ -23,6 +25,7 @@
 		<None Include="compilerconfig.json" />
 		<None Include="wwwroot\css\scss\sections\_completed.scss" />
 		<None Include="wwwroot\css\scss\sections\_signin.scss" />
+		<None Include="wwwroot\js\darkMode.js" />
 		<None Include="wwwroot\js\fetchquestion.js" />
 		<None Include="wwwroot\js\formvalidation.js" />
 	</ItemGroup>
@@ -44,7 +47,6 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Polly" Version="8.4.1" />
 		<PackageReference Include="polly.Extensions.Http" Version="3.0.0" />
-	    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
 </ItemGroup>
 
 </Project>

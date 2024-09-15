@@ -2,12 +2,39 @@
     padding-top: 30px;
 
     .container {
-        background-color: #FFF;
         padding: 15px;
         border-radius: 15px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden; 
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+        }
+       
+        .table thead th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .table thead th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+        .table tbody tr:last-child td:first-child {
+            border-bottom-left-radius: 10px;
+        }
+
+        .table tbody tr:last-child td:last-child {
+            border-bottom-right-radius: 10px;
+        }
 
         .btn {
             display: block;
@@ -33,7 +60,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            background-color: #fff;
+            color: #000;
         }
 
         .modal-header {
@@ -44,7 +71,6 @@
         .modal-title {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #333;
         }
 
         .modal-footer {
