@@ -5,11 +5,12 @@
 <section class="survey-data bg-light">
     <div class="container">
 
-        <h1>Survey Data</h1>
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#overallAnalysisModal">
-            Visa AI-respons
-        </button>
+        <div class="section-title">
+            <h1>Survey Data</h1>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#overallAnalysisModal">
+                Visa AI-respons
+            </button>
+        </div>
 
         @if (Model.Data is not null)
         {
@@ -94,6 +95,7 @@
                                 <p>@Html.Raw(Model.OverallAnalysis)</p>
                             </div>
                             <div class="modal-footer">
+                                <button class="btn btn-secondary" onclick="savePDF()">Spara som PDF</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
@@ -107,9 +109,9 @@
                 @foreach (var item in Model.Data)
                 {
                     <div class="chart-box">
-                        <h2>@item.QuestionText</h2>
+                        <p>Fråga: @item.QuestionId</p><h2>@item.QuestionText</h2>
                         <canvas id="chart-@item.QuestionId"></canvas>
-                        <hr class="chart-divider" />
+                        @* <hr class="chart-divider" /> *@
                     </div>
                 }
             </div>
@@ -124,7 +126,7 @@
     </div>
 </section>
 
-
+<script src="/js/savePDF.js"></script>
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -132,7 +134,7 @@
         @foreach (var item in Model.Data!)
         {
             <text>
-                                                        var ctx = document.getElementById('chart-@item.QuestionId').getContext('2d');
+                                        var ctx = document.getElementById('chart-@item.QuestionId').getContext('2d');
                 var data = @Html.Raw(JsonConvert.SerializeObject(new
                     {
                         labels = item.OptionsCount.Keys.ToList(),
@@ -166,7 +168,7 @@
                 });
             </text>
         }
-                                });
+                    });
     </script>
 }
 

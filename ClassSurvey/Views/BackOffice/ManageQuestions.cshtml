@@ -3,9 +3,9 @@
     ViewData["Title"] = "Add a New Question";
 }
 
-<section>
-    <div class="container mt-5">
-        <h1 class="text-center">Add a New Question</h1>
+<section id="manage-questions" class="bg-light">
+    <div class="container">
+        <h2 class="text-center">Add a New Question</h2>
         <form asp-action="AddQuestion" method="post" class="mt-4">
             <div class="form-group">
                 <label for="QuestionText">Question Text</label>
@@ -29,14 +29,16 @@
 
             <div class="form-group mt-4">
                 <label for="Options">Options (for Multiple Choice questions)</label>
-                @for (int i = 1; i < 6; i++)
+
+                @for (int i = 0; i < 5; i++)
                 {
-                    <input type="text" class="form-control mb-2" asp-for="Options[@i]" placeholder="Option @(i + 1)">
+                    <input type="text" class="form-control mb-2" name="Options[@i]" autocomplete="off" placeholder="Option @(i + 1)">
                 }
+
                 <small class="form-text text-muted">Add up to 5 options for multiple choice questions.</small>
             </div>
 
-            <button type="submit" class="btn btn-primary mt-4">Add Question</button>
         </form>
+        <button type="submit" class="btn btn-dark">Add Question</button>
     </div>
 </section>

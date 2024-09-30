@@ -4,6 +4,7 @@ using ClassSurvey.Services;
 using ClassSurvey.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Rotativa.AspNetCore;
 using System.Diagnostics;
 
 namespace ClassSurvey.Controllers;
@@ -65,6 +66,41 @@ public class BackOfficeController(SurveyService surveyService, DataAggregationHe
         {
             Debug.WriteLine($"{ex.Message}");
             throw;
+        }
+    }
+
+    public IActionResult ManageQuestions()
+    {
+        var questionVM = new QuestionVM();
+
+        return View(questionVM);
+    }
+
+    public async Task<IActionResult> GeneratePdf()
+    {
+        try
+        {
+            var answers = await _adminService.GetAnswersAsync();
+            var questionsResult = await _surveyService.GetQuestionsAsync();
+            var aggregatedData = _dataAggregationHelper.AggregateData(answers, questionsResult.ContentResult as List<Question>);
+            var analysisResponse = await _surveyService.GetAnalysisAsync();
+
+            var viewmodel = new SurveyVM
+            {
+                Data = aggregatedData,
+                OverallAnalysis = analysisResponse.OverallAnalysis,
+            };
+
+            var pdfResult = new ViewAsPdf("SurveyPdf", viewmodel)
+            {
+                FileName = "SurveyDataWIN23.pdf"
+            };
+
+            return pdfResult;
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error {ex.Message}");
         }
     }
 

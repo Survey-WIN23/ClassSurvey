@@ -1835,6 +1835,16 @@ header .navbar .nav-item.icon {
   flex-direction: column;
   justify-content: center;
 }
+.survey-data .container .section-title {
+  display: flex;
+  justify-content: space-between;
+}
+.survey-data .container .section-title .btn {
+  margin-bottom: 1rem;
+}
+.survey-data .container .section-title .btn:hover {
+  background-color: var(--color-secondary) !important;
+}
 .survey-data .container .table {
   border-collapse: separate;
   border-spacing: 0;
@@ -1923,4 +1933,19 @@ header .navbar .nav-item.icon {
   border-top: 2px solid #333;
   width: 100%;
   margin: 20px 0;
+}
+
+#manage-questions {
+  height: 100vh;
+  padding-top: 60px;
+}
+#manage-questions .container {
+  padding: 20px;
+  width: 800px;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+#manage-questions .container .btn {
+  display: block;
+  margin: 20px auto;
 }
