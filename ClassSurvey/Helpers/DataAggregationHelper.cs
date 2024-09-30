@@ -2,15 +2,17 @@
 using ClassSurvey.ViewModels;
 using System.Diagnostics;
 
-namespace ClassSurvey.Helpers
+namespace ClassSurvey.Helpers;
+
+public class DataAggregationHelper
 {
-    public class DataAggregationHelper
+    public List<AggregatedQuestionDataVM> AggregateData(IEnumerable<AnswerForm> answers, IEnumerable<Question> questions)
     {
-        public List<AggregatedQuestionDataVM> AggregateData(IEnumerable<AnswerForm> answers, IEnumerable<Question> questions)
+        var aggregatedData = new List<AggregatedQuestionDataVM>();
+
+        try
         {
             var questionDictionary = questions.ToDictionary(q => q.Id);
-            var aggregatedData = new List<AggregatedQuestionDataVM>();
-
             var questionGroups = answers.GroupBy(a => a.QuestionId);
 
             foreach (var group in questionGroups)
@@ -18,7 +20,7 @@ namespace ClassSurvey.Helpers
                 var questionId = group.Key;
                 var question = questionDictionary.GetValueOrDefault(questionId);
 
-                if (question == null)
+                if (question is null)
                 {
                     Debug.WriteLine($"No question found with ID: {questionId}");
                     continue;
@@ -49,8 +51,11 @@ namespace ClassSurvey.Helpers
                     ResponseText = responseText
                 });
             }
-
-            return aggregatedData;
         }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"An error occurred while aggregatring data::  {ex.Message}");
+        }
+        return aggregatedData;
     }
 }
