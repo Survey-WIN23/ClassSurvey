@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace ClassSurvey.Controllers;
 
-[Authorize(Roles = "SuperUser")]
+//[Authorize(Roles = "SuperUser")]
 public class BackOfficeController(SurveyService surveyService, DataAggregationHelper dataAggregationHelper, AdminService adminService) : Controller
 {
     private readonly SurveyService _surveyService = surveyService;
@@ -82,7 +82,14 @@ public class BackOfficeController(SurveyService surveyService, DataAggregationHe
         {
             var answers = await _adminService.GetAnswersAsync();
             var questionsResult = await _surveyService.GetQuestionsAsync();
-            var aggregatedData = _dataAggregationHelper.AggregateData(answers, questionsResult.ContentResult as List<Question>);
+            var questions = questionsResult.ContentResult as List<Question>;
+
+            if (questions is null)
+            {
+                return StatusCode(500, $"No valid questions.");
+            }
+
+            var aggregatedData = _dataAggregationHelper.AggregateData(answers, questions);
             var analysisResponse = await _surveyService.GetAnalysisAsync();
 
             var viewmodel = new SurveyVM
@@ -115,7 +122,6 @@ public class BackOfficeController(SurveyService surveyService, DataAggregationHe
     //    }
     //    catch (Exception ex)
     //    {
-    //        // Log exception and handle errors as needed
     //        return PartialView("_AnalysisPartial", new AnalysisViewModel
     //        {
     //            OverallAnalysis = $"An error occurred: {ex.Message}"

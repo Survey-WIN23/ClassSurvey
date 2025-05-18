@@ -18,10 +18,10 @@ public class AdminController(UserManager<UserEntity> userManager, RoleManager<Id
     [HttpGet]
     public IActionResult SignIn()
     {
-        if (!_userManager.Users.Any(u => u.UserName == "ted.pieplow@gmail.com"))
-        {
-            ViewBag.ShowSetup = true;
-        }
+        //if (!_userManager.Users.Any(u => u.UserName == "ted.pieplow@gmail.com"))
+        //{
+        //    ViewBag.ShowSetup = true;
+        //}
 
         return View();
     }

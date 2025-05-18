@@ -1,6 +1,7 @@
 ﻿using ClassSurvey.Models;
 using ClassSurvey.ViewModels;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 
 namespace ClassSurvey.Helpers;
 
@@ -30,14 +31,14 @@ public class DataAggregationHelper
 
                 foreach (var answer in group)
                 {
-                    var optionValue = answer.SelectedOption?.Value ?? "No Option";
-                    if (optionsCount.TryGetValue(optionValue, out int value))
+                    var optionKey = answer.SelectedOption?.Value ?? "No Option";
+                    if (optionsCount.TryGetValue(optionKey, out int value))
                     {
-                        optionsCount[optionValue] = ++value;
+                        optionsCount[optionKey] = ++value;
                     }
                     else
                     {
-                        optionsCount[optionValue] = 1;
+                        optionsCount[optionKey] = 1;
                     }
                 }
 

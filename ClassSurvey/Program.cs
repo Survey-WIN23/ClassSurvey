@@ -5,7 +5,8 @@ builder.Services.RegisterServices(builder.Configuration);
 
 var app = builder.Build();
 
-await app.SeedSuperAdminAsync();
+// COmment out this line to prevent the application from crash locally.
+//await app.SeedSuperAdminAsync();
 
 app.ConfigureExceptionHandling();
 app.ConfigureMiddleware();
