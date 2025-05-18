@@ -1,0 +1,11 @@
+﻿@model QuestionVM
+
+@{
+    ViewData["Title"] = "Edit or remove questions";
+}
+
+<h2>Question List</h2>
+
+<QuickGrid Items="@Model.Questions.AsQueryable()" class="">
+    <PropertyColumn Property="@Model.Question" Title="Question"/>
+</QuickGrid>

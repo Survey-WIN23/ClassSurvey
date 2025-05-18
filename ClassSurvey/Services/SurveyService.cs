@@ -2,6 +2,7 @@
 using ClassSurvey.Models;
 using ClassSurvey.ViewModels;
 using Markdig;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
@@ -62,6 +63,19 @@ public class SurveyService(HttpClient http, IConfiguration configuration, JWTSer
         catch (Exception ex)
         {
             return ResponseFactory.Error($"An unexpected error occurred: {ex.Message}");
+        }
+    }
+
+    public async Task<bool> RemoveQuestionAsync(string questionId)
+    {
+        var response = await _http.DeleteAsync(questionId);
+        if (response.IsSuccessStatusCode)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

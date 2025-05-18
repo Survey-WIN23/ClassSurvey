@@ -69,11 +69,36 @@ public class BackOfficeController(SurveyService surveyService, DataAggregationHe
         }
     }
 
-    public IActionResult ManageQuestions()
+    public IActionResult AddQuestion()
     {
         var questionVM = new QuestionVM();
 
         return View(questionVM);
+    }
+
+    public async Task<IActionResult> RemoveQuestion(string questionId)
+    {
+        var questionVM = new QuestionVM();
+        var result = await _surveyService.RemoveQuestionAsync(questionId);
+
+        if (result)
+        {
+            return View(questionVM);
+        }
+        else
+        {
+            return View(questionVM);
+        }
+    }
+
+    public async Task<IActionResult> EditQuestions()
+    {
+        var questionsResult = await _surveyService.GetQuestionsAsync();
+        var viewModel = new QuestionVM
+        {
+            Questions = (List<Question>)questionsResult.ContentResult!
+        };
+        return View(viewModel);
     }
 
     public async Task<IActionResult> GeneratePdf()

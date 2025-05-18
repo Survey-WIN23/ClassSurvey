@@ -28,8 +28,17 @@
                         <h5 class="card-title">Hantera Frågor</h5>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Här kan du lägga till, uppdatera eller ta bort frågor.</p>
-                        <a href="@Url.Action("ManageQuestions", "BackOffice")" class="btn">Hantera Frågor</a>
+                        <p class="card-text">Här kan du lägga till frågor.</p>
+                        <a href="@Url.Action("AddQuestion", "BackOffice")" class="btn">Lägg till Frågor</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Hantera Frågor</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Här kan du uppdatera eller ta bort frågor.</p>
+                        <a href="@Url.Action("EditQuestions", "BackOffice")" class="btn">Ta bort Frågor</a>
                     </div>
                 </div>
             </div>
